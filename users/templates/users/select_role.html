@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %} 
 
 
 
@@ -19,7 +19,7 @@
     <section class="polls">
 
         <form method="GET" novalidate>
-            {{ form }}
+            {{ form|crispy }}
             <div class='d-flex justify-content-between'>
                 <button type="submit" name="yes" class="btn btn-success">ok</button>
                 <a type="link" href="{% url 'users:select-role' %}" class="btn btn-secondary">Cancel</a>
