@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+{% block content %}
+
+    <section  class="polls">
+        <h1 class='poll-question'>Please Select What you want to Register as ?</h1>
+    </section>
+
+    <section class="polls">
+
+        <form method="GET" novalidate>
+            {{ form }}
+            <div class='d-flex justify-content-between'>
+                <button type="submit" name="yes" class="btn btn-success">ok</button>
+                <a type="link" href="{% url 'users:select-role' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>    
+        
+    </section>
+
+
+    <section>
+        <p> Polls's Owner : you can Add a poll ,vote on the polls you not own it and display the results of voters</p>
+        <br>
+        <p> Voter : you can vote on all polls and display the results of voters</p>
+    </section >
+
+
+
+
+{% endblock content %}

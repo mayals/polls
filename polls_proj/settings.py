@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my app
     'polls.apps.PollsConfig',
+    'users.apps.UsersConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -141,13 +143,32 @@ USE_I18N = True
 USE_TZ = True
 
 
+
+############################### STATIC ##################################
 # Static files (CSS, JavaScript, Images)
+
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = 'static/'
+# https://whitenoise.readthedocs.io/en/latest/
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+STATICFILES_DIRS = [ BASE_DIR/"static"]  #for static folder than put in main project root(near mnage.py file),which contain static belong to all project
+#STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)     also work ok
+
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') # for collectstatic for deployment
+
+############################### MEDIA ##################################
+# Media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')                            # default storage of media in development 
+# DEFAULT_FILE_STORAGE ='cloudinary_storage.storage.MediaCloudinaryStorage' # default storage of media in production
+
+
+
+
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -161,3 +182,9 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+
+
+
+############################### AUTH_USER_MODEL ##################################
+AUTH_USER_MODEL = "users.CustomUser"
