@@ -102,6 +102,7 @@ body {
     color: white;
   }
 
+  
 /* Footer */
 .footer {
     background-color: #333;
@@ -110,6 +111,20 @@ body {
     text-align: center;
     border-radius: 0 0 8px 8px;
 }
- .txt-color{
+
+.txt-color{
     color:#6DA6FB 
  }
+
+/* https://fonts.google.com/selection/embed  */
+.kanit-light{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.kanit-black{
+    font-family: "Kanit", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}

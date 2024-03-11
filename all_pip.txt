@@ -1,2 +1,8 @@
+# https://docs.djangoproject.com/en/4.2/topics/install/#installing-an-official-release-with-pip
 pip install Django
+
+
+# https://pypi.org/project/crispy-bootstrap5/
 pip install crispy-bootstrap5
+
+

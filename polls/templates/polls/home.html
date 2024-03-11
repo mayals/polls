@@ -13,7 +13,7 @@
 
 {% block content %}
     <section class="row mb-1">
-      {% if request.user == 'OWNER' %}
+      {% if request.user.is_superuser or request.user.role == 'OWNER'   %}
               <div class="col-md-6">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-sm btn-info bg-info">+Poll</button>
@@ -62,11 +62,13 @@
 
 
 
-    <section class='polls bg-primary-subtle'>   
+    <section class='polls bg-primary-subtle kanit-black'>   
+
+
+    <h1 class='txt-color'><strong>Polls</strong></h1>
 
     {% if latest_question_list %}
 
-        <h1 class='txt-color'><strong>Polls</strong></h1>
         <br> 
           
             {% for question in latest_question_list %}

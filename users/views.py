@@ -72,7 +72,7 @@ def user_login(request):
         password = request.POST.get('password')
         print(username)
         print(password)
-        user = authenticate(username=username, password=password) #this user is found result only if user.is_active=True
+        user = authenticate(username=username,password=password) #this user is found result only if user.is_active=True
         print('user='+str(user))
         if user is not None and user.is_active == True :
             #print('user='+ str(user))
