@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %}
+    <section class="row mb-1">
+      {% if request.user == 'OWNER' %}
+              <div class="col-md-6">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-sm btn-info bg-info">+Poll</button>
+                </div>
+              </div>
+      {% endif %}
+              
+              <!-- search by name -->
+              <div class="col-md-6">
+                    <form class="form-inline input-group flex-nowrap" action="#" method="post">
+                        <input type="text" id="search" name="search" class='form-control' placeholder="Search By Word...">
+                        <button type="submit" class="btn btn-sm btn-light bg-info">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>       
+              </div>      
+    </section>
+
+   
+
+
+    <!-- filter and sort section-->
+    <section class="row mb-1">
+      <div class="input-group mb-3">
+        
+        <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>By Category...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        &nbsp &nbsp 
+
+        <label class="input-group-text" for="inputGroupSelect01">Sort</label>
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>By...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+      </div>
+    </section>
+
+
+
+    <section class='polls bg-primary-subtle'>   
+
+    {% if latest_question_list %}
+
+        <h1 class='txt-color'><strong>Polls</strong></h1>
+        <br> 
+          
+            {% for question in latest_question_list %}
+                <section class='polls'>
+                    <div class="fw-bold fw-medium fs-3 text">
+                        <i class="fa-solid fa-play text-info"></i> &nbsp
+                        <a class='text-decoration-none' href="{% url 'polls:question-detail' question_slug=question.slug  year=question.published_at.year  month=question.published_at.month  day=question.published_at.day %}">
+                            {{ question.question_text }}
+                        </a>
+                    </div> 
+                  
+                      <div class="d-flex flex-row-reverse">
+                        <button type="button" class="btn btn-sm btn-danger bg-danger p-1">+Vote</button>&nbsp
+                        <button type="button" class="btn btn-sm btn-info bg-info p-1">Edit</button>&nbsp 
+                        <button type="button" class="btn btn-sm btn-info bg-info p-1">Delete</button>&nbsp
+                      </div>
+                  
+                
+                  </section>
+            {% endfor %}      
+          
+    {% else %}
+    <p>No polls are available.</p>
+    {% endif %}
+
+    
+    </section>   
+{% endblock content %} 

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %}
+
+    <section  class="polls">
+        <h1 class='poll-question'>{{ question.question_text }}</h1>
+    </section>
+
+    <section class="polls">
+        <form action="{% url 'polls:question-vote-create' question_slug=question.slug  year=question.published_at.year  month=question.published_at.month  day=question.published_at.day %}" method="post">
+            {% csrf_token %}
+
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="form-check-input">
+                <label for="choice{{ forloop.counter }}" class="form-check-label">
+                    {{ choice.choice_text }}
+                </label> 
+                <br>
+            {% endfor %}
+            <div class="d-flex flex-row-reverse">
+                <input class='my-btn' type="submit" value="Vote">
+            </div>    
+        </form>
+    </section>
+
+{% endblock  content %}

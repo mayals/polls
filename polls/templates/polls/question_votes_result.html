@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %}
+        
+    <section  class="polls">
+        <h1 class='poll-question'>{{ question.question_text }}</h1>
+    </section>
+
+
+    <section  class="polls">
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    
+
+        <!-- https://www.chartjs.org/docs/latest/getting-started/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        <script>
+            const ctx = document.getElementById('myChart');
+        
+            new Chart(ctx, {
+                        type: 'bar',
+                        data: {                         
+                            labels: {{labels|safe}},
+                            datasets: [{
+                                    label: '# of Votes',
+                                    data : {{data_count|safe}},
+                                    borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                            }
+                        }
+            });
+
+
+        </script>
+
+
+
+    </section>

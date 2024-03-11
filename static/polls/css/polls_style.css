@@ -1,0 +1,115 @@
+/* Reset default browser styles */
+body, html, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Box sizing */
+* {
+    box-sizing: border-box;
+}
+
+/* Body background */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 36px;
+}
+
+/* Polls section */
+.polls {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.polls h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Poll question */
+.poll-question {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Choices */
+.choices {
+    list-style-type: none;
+    background-color: rgb(118, 165, 119);
+}
+
+
+
+.choice {
+    margin-bottom: 10px;
+    background-color:rgb(222, 219, 14); ;
+}
+
+.choice label {
+    display: block;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.choice label:hover {
+    background-color: #e9e9e9;
+}
+
+
+
+/* Button */
+.my-btn {
+    background-color: #938a8a; /* Gray */
+    border: none;
+    color: white;
+    padding: 1px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 0%;
+    transition-duration: 0.4s;
+  }
+
+.my-btn:hover {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+}
+ .txt-color{
+    color:#6DA6FB 
+ }
