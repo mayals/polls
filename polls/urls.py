@@ -5,7 +5,7 @@ app_name = 'polls'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('<slug:question_slug>/<int:year>/<int:month>/<int:day>/', views.question_detail, name='question-detail'),
-    path('question-votes-result/<slug:question_slug>/<int:year>/<int:month>/<int:day>/', views.question_votes_result, name='question-votes-result'),
-    path('question-vote-create/<slug:question_slug>/<int:year>/<int:month>/<int:day>/', views.question_vote_create, name='question-vote-create'),
+    path('<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_detail, name='poll-detail'),
+    path('poll-votes-result/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_votes_result, name='poll-votes-result'),
+    path('poll-vote-create/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_vote_create, name='poll-vote-create'),
 ]

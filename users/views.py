@@ -52,7 +52,7 @@ def user_create_view(request,role=None):
                     print("new_user.role="+str(role))
                     new_user.save()
                     messages.success(request,f'Successfull register { new_user.username }! ')
-                    return redirect('polls:home')
+                    return redirect('users:user-login')
         
         else:
             form = UserRegisterForm()
@@ -97,7 +97,7 @@ def user_login(request):
 
 
 
-@login_required(login_url='user:user-login')
+@login_required(login_url='users:user-login')
 def user_logout(request):
     logout(request)
-    return redirect('blog:home')
+    return redirect('polls:home')

@@ -12,11 +12,13 @@
 
 
 {% block content %}
+
+{{ request.user.role }}
     <section class="row mb-1">
       {% if request.user.is_superuser or request.user.role == 'OWNER'   %}
               <div class="col-md-6">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-sm btn-info bg-info">+Poll</button>
+                  <button  href="" type="button" class="btn btn-sm btn-info bg-info">+Poll</button>
                 </div>
               </div>
       {% endif %}
@@ -67,16 +69,16 @@
 
     <h1 class='txt-color'><strong>Polls</strong></h1>
 
-    {% if latest_question_list %}
+    {% if latest_poll_list %}
 
         <br> 
           
-            {% for question in latest_question_list %}
+            {% for poll in latest_poll_list %}
                 <section class='polls'>
                     <div class="fw-bold fw-medium fs-3 text">
                         <i class="fa-solid fa-play text-info"></i> &nbsp
-                        <a class='text-decoration-none' href="{% url 'polls:question-detail' question_slug=question.slug  year=question.published_at.year  month=question.published_at.month  day=question.published_at.day %}">
-                            {{ question.question_text }}
+                        <a class='text-decoration-none' href="{% url 'polls:poll-detail' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}">
+                            {{ poll.poll_question }}
                         </a>
                     </div> 
                   
@@ -85,9 +87,8 @@
                         <button type="button" class="btn btn-sm btn-info bg-info p-1">Edit</button>&nbsp 
                         <button type="button" class="btn btn-sm btn-info bg-info p-1">Delete</button>&nbsp
                       </div>
-                  
-                
-                  </section>
+              
+                </section>
             {% endfor %}      
           
     {% else %}
