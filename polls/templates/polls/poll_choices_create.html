@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %}
+
+    <section  class="polls">
+        <h1 class='poll-question'>{{ poll.poll_question }}</h1>
+    </section>
+
+
+    {{ poll.choice_set.all }}
+
+    
+    <section class="polls">
+        <form method="POST">
+            {% csrf_token %}
+
+            {{  form|crispy }}
+            <div class="d-flex flex-row-reverse">
+                <input class='my-btn' type="submit" value="Add Choice">
+            </div>    
+        </form>
+    </section>
+
+{% endblock content %}

@@ -18,7 +18,7 @@
       {% if request.user.is_superuser or request.user.role == 'OWNER'   %}
               <div class="col-md-6">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button  href="" type="button" class="btn btn-sm btn-info bg-info">+Poll</button>
+                  <a  href="{% url 'polls:poll-create' %}" type="button" class="btn btn-sm btn-info bg-info">+Poll</a>
                 </div>
               </div>
       {% endif %}
@@ -83,7 +83,7 @@
                     </div> 
                   
                       <div class="d-flex flex-row-reverse">
-                        <button type="button" class="btn btn-sm btn-danger bg-danger p-1">+Vote</button>&nbsp
+                        <a  href="{% url 'polls:poll-detail' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}"  type="button" class="btn btn-sm btn-danger bg-danger p-1">+Vote</a>&nbsp
                         <button type="button" class="btn btn-sm btn-info bg-info p-1">Edit</button>&nbsp 
                         <button type="button" class="btn btn-sm btn-info bg-info p-1">Delete</button>&nbsp
                       </div>
