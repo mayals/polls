@@ -15,21 +15,38 @@
 
     <section  class="polls">
         <h1 class='poll-question'>{{ poll.poll_question }}</h1>
+   
+        <div>
+            {% for choice in poll.choice_set.all %}
+                <li> {{ choice.choice_text|title }}</li>
+            {% endfor %}
+        </div>
+
     </section>
 
-
-    {{ poll.choice_set.all }}
-
+    {% if poll.choice_set.all.count < 5 %}
+    <section class="polls"> 
+        <p>Fill the form below to Add a choice : </p>
+            <br>
+            <br>
     
-    <section class="polls">
         <form method="POST">
             {% csrf_token %}
 
             {{  form|crispy }}
-            <div class="d-flex flex-row-reverse">
-                <input class='my-btn' type="submit" value="Add Choice">
+            <div class="d-flex justify-content-between">
+                <input class='my-btn' type="submit" value="Add a choice">                
             </div>    
         </form>
-    </section>
+
+    </section>        
+    {% else %}       
+    <div>
+        <a href="#" class='my-btn' type="button" >Edit</a>
+        <a href="#" class='my-btn' type="button" >Finish and go to the next step</a>
+    </div>
+    {% endif %}
+
+
 
 {% endblock content %}
