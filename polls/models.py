@@ -49,4 +49,6 @@ class Choice(models.Model):
     choice_votes_count = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.choice_text
+        return str(self.id)
+    
+    

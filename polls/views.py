@@ -64,9 +64,10 @@ def poll_choices_create(request,poll_slug,year,month,day):
                                                                                      "day": poll.published_at.day}))
         else:    
             form = ChoiceForm()
+            messages.error(request, f'error in creating a choice please try again!') 
     context = {
-        'poll'  : poll,
-        'form'  : form,    
+        'poll'       : poll,
+        'poll_form'  : form,    
     }
     return render(request, 'polls/poll_choices_create.html', context)
 
@@ -74,6 +75,98 @@ def poll_choices_create(request,poll_slug,year,month,day):
 
 
 
+@login_required(login_url='users:user-login')
+def poll_update(request,year,month,day,poll_slug): 
+    poll = get_object_or_404(Poll, status=Poll.Status.PUBLISHED,
+                                    poll_slug=poll_slug, 
+                                    published_at__year=year,
+                                    published_at__month=month,
+                                    published_at__day=day,
+    ) 
+    if poll.poll_user == request.user :
+        #-----PollForm()-------#  
+        poll_form = PollForm(instance=poll)
+        if request.method == 'POST':
+            poll_form = PollForm(request.POST,request.FILES,instance=poll)
+            if poll_form.is_valid():
+                updated_poll = poll_form.save(commit=False)
+                updated_poll.poll_user = request.user
+                updated_poll.save() 
+                messages.success(request,f'Thanks ( {request.user.username} ), your poll updated successfully !')
+                return redirect('polls:poll-choices-create',year=poll.published_at.year,month=poll.published_at.month,day=poll.published_at.day,poll_slug=poll.poll_slug)
+            
+         
+            
+            else:
+                poll_form = PollForm(request.POST,request.FILES,instance=poll)
+                messages.error(request,f'Poll not update correctly! please try again.!')
+             
+    
+    else:
+        messages.warning(request,f"Sorry, you have no permission to update this posll, only poll's author can update it")
+        return redirect('polls:home')
+    
+    context ={
+        'title'       :'Poll Update',
+        'poll'        : poll,
+        'poll_form'   : poll_form,
+        
+    }
+    return render(request,'polls/poll_update.html',context)
+
+
+
+
+@login_required(login_url='users:user-login')
+def poll_choices_update(request,year,month,day,poll_slug,choice_id): 
+    poll = get_object_or_404(Poll, status=Poll.Status.PUBLISHED,
+                                    poll_slug=poll_slug, 
+                                    published_at__year=year,
+                                    published_at__month=month,
+                                    published_at__day=day,
+    ) 
+    
+    choice = Choice.objects.filter(choice_poll=poll,id=choice_id).first()
+    print(choice)
+    if poll.poll_user == request.user :
+        #---- ChoiceForm()-------#  
+        choice_form = ChoiceForm(instance=choice)
+        if request.method == 'POST':
+            choice_form = ChoiceForm(request.POST,request.FILES,instance=choice)
+            if choice_form.is_valid():
+                updated_choice = choice_form.save(commit=False)
+                updated_choice.choice_poll = poll
+                updated_choice.id = choice_id
+                updated_choice.save() 
+                messages.success(request,f'Thanks ( {request.user.username} ),the choice updated successfully !')
+                return redirect('polls:poll-choices-create',year=poll.published_at.year,month=poll.published_at.month,day=poll.published_at.day,poll_slug=poll.poll_slug)
+            
+         
+            
+            else:
+                choice_form = ChoiceForm(request.POST,request.FILES,instance=choice_id)
+                messages.error(request,f'choice not update correctly! please try again.!')
+             
+        # #-----ChoiceForm()-------#      
+        # for choice in poll.choice_set.all() :
+        #     choice_form = ChoiceForm(instance=choice)
+            
+        
+    
+    
+    
+    
+    else:
+        messages.warning(request,f"Sorry, you have no permission to update , only poll's author can update it")
+        return redirect('polls:home')
+    
+    context ={
+        'title'       :'Choice Update',
+        'poll'        : poll,
+        'choice_form' : choice_form,
+        
+    }
+    return render(request,'polls/poll_choices_update.html',context)
 
 
 

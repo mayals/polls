@@ -14,26 +14,40 @@
 {% block content %}
 
     <section  class="polls">
-        <h1 class='poll-question'>{{ poll.poll_question }}</h1>
-   
-        <div>
-            {% for choice in poll.choice_set.all %}
-                <li> {{ choice.choice_text|title }}</li>
-            {% endfor %}
+        <div class= "d-flex justify-content-between">
+            <h1 class='poll-question'><strong><text class="fs-4">{{ poll.poll_question }}</strong></text></h1>
+            <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn' type="button">Edit the Question</a>
         </div>
-
+        <br>
+        <br>
+        <br>
+        <div>
+            {% if poll.choice_set.all.count > 0  %}
+                <ul class="list-group">
+                {% for choice in poll.choice_set.all %}
+                    <div class=' polls d-flex justify-content-between'>
+                        <li class="list-group-item border-0" >{{ choice.choice_text|title }}</li><a href="{% url 'polls:poll-choices-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day choice_id=choice.id  %}" class='my-btn' type="button">Edit</a>
+                    </div>
+                  
+                {% endfor %}
+               
+                </ul>
+            {% endif %}
+        </div>
     </section>
 
     {% if poll.choice_set.all.count < 5 %}
     <section class="polls"> 
-        <p>Fill the form below to Add a choice : </p>
+        <p>Add a choice to:
+            <br>  
+            <strong><text class="fs-4">{{ poll.poll_question|title }}</text></strong> : </p>
             <br>
             <br>
     
-        <form method="POST">
+        <form method="POST" enctype='multipart/form-data' novalidate>
             {% csrf_token %}
 
-            {{  form|crispy }}
+            {{  poll_form|crispy }}
             <div class="d-flex justify-content-between">
                 <input class='my-btn' type="submit" value="Add a choice">                
             </div>    
@@ -42,8 +56,8 @@
     </section>        
     {% else %}       
     <div>
-        <a href="#" class='my-btn' type="button" >Edit</a>
-        <a href="#" class='my-btn' type="button" >Finish and go to the next step</a>
+       
+        <a href="{% url 'polls:home' %}" class='my-btn' type="button" >Finish and go to main page</a>
     </div>
     {% endif %}
 

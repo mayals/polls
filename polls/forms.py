@@ -5,7 +5,7 @@ from .models import Poll,Choice
 
 
 class PollForm(forms.ModelForm):
-    poll_question = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Qustion..'}))
+    poll_question = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Add Qustion..'}))
     
     class Meta:
             model   = Poll
@@ -14,7 +14,7 @@ class PollForm(forms.ModelForm):
        
        
 class ChoiceForm(forms.ModelForm):
-    choice_text        = forms.CharField(max_length=200)
+    choice_text = forms.CharField(max_length=200)
 
     class Meta:
             model   = Choice
