@@ -8,7 +8,14 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    latest_poll_list = Poll.objects.order_by('-published_at')[:5]
+    latest_poll_list = Poll.objects.order_by('-published_at')
+    
+    # search poll by poll_question 
+    if 'sc' in request.GET:   
+        sc = request.GET['sc']
+        latest_poll_list = latest_poll_list.filter(poll_question__icontains=sc) 
+    
+   
     context = {
         'latest_poll_list': latest_poll_list
         }
