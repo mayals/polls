@@ -13,16 +13,10 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
-
-    
-    
+ 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        # polls_count = Poll.objects.filter(category=self).count()
-        # self.polls_count = polls_count
+        self.slug = slugify(self.name)      
         super().save(*args, **kwargs)
-    
-    
     
     
     def get_absolute_url(self):
@@ -31,11 +25,13 @@ class Category(models.Model):
     
 
 
+
+
+
 class Poll(models.Model):
     class Status(models.TextChoices):
         DRAFT     = 'DR' , 'Draft'
         PUBLISHED = 'PB' , 'Published'
-    
     
     category      = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='polls_category', null=True)
     poll_slug     = models.SlugField(max_length=120, blank=True,  null=True)

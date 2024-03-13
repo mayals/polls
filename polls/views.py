@@ -7,7 +7,14 @@ from .models import Poll, Choice,Category
 from .forms import PollForm,ChoiceForm
 
 def categories(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('-polls_count')
+    
+    for cat in categories :
+        polls = Poll.objects.all().filter(category=cat)
+        polls_count = polls.count()
+        cat.polls_count = polls_count
+        cat.save()
+        
     context={
         'title'     : 'Categories',
         'categories': categories,
@@ -25,18 +32,29 @@ def cat_detail(request,cat_slug):
 
 
 
-def home(request,catslug=None):
+def home(request,catslug=None,sc=None,sort_by=None):
+    
+    categories = Category.objects.all().order_by('-polls_count')
+    
+    # to save the polls count for each category in database 
+    for cat in categories :
+        polls = Poll.objects.all().filter(category=cat)
+        polls_count = polls.count()
+        cat.polls_count = polls_count
+        cat.save()
+    
     
     polls = Poll.objects.all()
-   
+    
     # to delete from database any poll which has no choice  -- cleaning database from wrong polls
     for poll in polls:
         print(poll.choice_set.count())
         if poll.choice_set.count() == 0 or  poll.choice_set.count() < int(5) :
            poll.delete()
         
+        
     latest_poll_list = polls.order_by('-published_at')
-
+    
     # search poll by poll_question 
     if 'sc' in request.GET:   
         sc = request.GET['sc']
@@ -47,10 +65,22 @@ def home(request,catslug=None):
     if catslug != None:
        latest_poll_list   = latest_poll_list.filter(category__slug=catslug)
 
-   
+
+    # sort by :
+    if sort_by != None:
+        if sort_by == 'PUB':
+            latest_poll_list = Poll.objects.order_by('-published_at')
+        # if sort_by == 'VOT':
+        #     latest_poll_list = Poll.objects.order_by('')
+        if sort_by == 'ALPH':
+            latest_poll_list = Poll.objects.order_by('poll_question')
+        
+        
+    
     context = {
-        'categories'      : Category.objects.all() ,
-        'latest_poll_list': latest_poll_list
+        'categories'      : Category.objects.all().order_by('-polls_count') ,
+        'latest_poll_list': latest_poll_list,
+        'sc'                : sc ,
         }
     return render(request, 'polls/home.html', context)
 

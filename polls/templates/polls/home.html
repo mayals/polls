@@ -21,7 +21,7 @@
       {% if request.user.is_superuser or request.user.role == 'OWNER'   %}
               <div class="col-md-6">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <a  href="{% url 'polls:poll-create' %}" type="button" class="btn btn-sm btn-outline-dark">+ Poll</a>
+                  <a  href="{% url 'polls:poll-create' %}" type="button" class="btn btn-sm btn-outline-info">+ Poll</a>
                 </div>
               </div>
       {% endif %}
@@ -43,15 +43,19 @@
           
             <!-- filter by category -->
             <div class="dropdown">
-              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-              Filter By ..
+              <button class="btn btn-light bg-info dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              Filter By Category ..
               </button>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              <ul class="dropdown-menu dropdown-menu-info" aria-labelledby="dropdownMenuButton2">
+                  {% for cat in categories %} 
+                      <li>
+                        <a  class="dropdown-item" href="{% url 'polls:home-filter-category' catslug=cat.slug %}">
+                              {{ cat.name|title }} - ({{cat.polls_count}})
+                        </a>
+                      </li>
+                  {% empty %}
+                      <li class='p-1'>No Category</li>
+                  {% endfor %}
               </ul>
             </div>
         
@@ -59,15 +63,13 @@
 
             <!-- sort by -->
             <div class="dropdown">
-              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-light bg-info dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
               Sort By ..
               </button>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              <ul class="dropdown-menu dropdown-menu-info" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item"  href="{% url 'polls:home-sort-by' sort_by="PUB" %}">Date Published</a></li>
+                <li><a class="dropdown-item"  href="{% url 'polls:home-sort-by' sort_by="VOT" %}">Voter Count</a></li>
+                <li><a class="dropdown-item"  href="{% url 'polls:home-sort-by' sort_by="ALPH" %}" >Alphabetic</a></li>
               </ul>
             </div>
       
@@ -76,7 +78,7 @@
             <!-- search by name -->
             <div class="col-md-6">
               <form class="form-inline input-group flex-nowrap" action={% url 'polls:home' %} method="GET">
-                  <input type="text" name="sc" value="" class='form-control' placeholder="Search By Word...">
+                  <input type="text" name="sc" {%if sc  %} value="{{sc}}"{% endif %} class='form-control bg-light' placeholder="Search By Word...">
                   <button type="submit" class="btn btn-sm btn-light bg-info">
                       <i class="fa-solid fa-magnifying-glass"></i>
                   </button>
