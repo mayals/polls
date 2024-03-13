@@ -1,21 +1,47 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Poll, Choice
-from .forms import PollForm,ChoiceForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Poll, Choice,Category
+from .forms import PollForm,ChoiceForm
+
+def categories(request):
+    categories = Category.objects.all()
+    context={
+        'title'     : 'Categories',
+        'categories': categories,
+    }
+    return render(request,'polls/categories.html',context)
+
+
+def cat_detail(request,cat_slug):
+    category = get_object_or_404(Category,slug=cat_slug)
+    context = {
+        'title': 'Category Detail',
+        'cat'  : category,
+    }
+    return render(request,'polls/cat_detail.html',context)
+
 
 
 def home(request):
-    latest_poll_list = Poll.objects.order_by('-published_at')
-    
+    polls = Poll.objects.all()
+   
+    # to delete from database any poll which has no choice  -- cleaning database from wrong polls
+    for poll in polls:
+        print(poll.choice_set.count())
+        if poll.choice_set.count() == 0 or  poll.choice_set.count() < int(5) :
+           poll.delete()
+        
+    latest_poll_list = polls.order_by('-published_at')
+
     # search poll by poll_question 
     if 'sc' in request.GET:   
         sc = request.GET['sc']
         latest_poll_list = latest_poll_list.filter(poll_question__icontains=sc) 
     
-   
+
     context = {
         'latest_poll_list': latest_poll_list
         }
@@ -64,7 +90,9 @@ def poll_choices_create(request,poll_slug,year,month,day):
             choice= form.save(commit=False)
             choice.choice_poll = poll
             choice.save()
-            messages.success(request,f'Thank you {request.user.username}now you add choice for this poll.')
+            if poll.choice_set.count() == 0 :
+                poll.delete()
+            messages.success(request,f'Thank you {request.user.username}for adding choice to this poll.')
             return HttpResponseRedirect(reverse('polls:poll-choices-create', kwargs={"poll_slug": poll.poll_slug,
                                                                                     "year": poll.published_at.year,
                                                                                    "month": poll.published_at.month,

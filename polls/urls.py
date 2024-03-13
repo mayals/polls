@@ -4,7 +4,11 @@ from . import views
 app_name = 'polls'
 
 urlpatterns = [
-    # polls
+    # Category
+    path('categories/', views.categories, name='categories'),
+    path('cat-detail/<slug:cat_slug>/', views.cat_detail, name='cat-detail'),
+    
+    # Polls
     path('', views.home, name='home'),
     path('new-poll/', views.poll_create, name='poll-create'),
     path('poll-choices-create/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_choices_create, name='poll-choices-create'),

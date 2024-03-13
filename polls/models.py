@@ -5,11 +5,39 @@ from django.utils.text import slugify
 from django.conf import settings
 
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True, blank=False ,null=True)
+    slug = models.SlugField(max_length=120, blank=True, null=True)
+    polls_count = models.PositiveIntegerField(default=0, blank=True)
+    
+    def __str__(self):
+        return self.name
+
+    
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        # polls_count = Poll.objects.filter(category=self).count()
+        # self.polls_count = polls_count
+        super().save(*args, **kwargs)
+    
+    
+    
+    
+    def get_absolute_url(self):
+        return reverse("polls:category-detail", args=[str(self.slug)])
+         
+    
+
+
 class Poll(models.Model):
     class Status(models.TextChoices):
         DRAFT     = 'DR' , 'Draft'
         PUBLISHED = 'PB' , 'Published'
     
+    
+    category      = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='polls_category', null=True)
     poll_slug     = models.SlugField(max_length=120, blank=True,  null=True)
     poll_question = models.CharField(max_length=200, blank=False, null=True)
     poll_user     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='polls_user')
@@ -17,16 +45,14 @@ class Poll(models.Model):
     created_at    = models.DateTimeField(auto_now_add=True)
     updated_at    = models.DateTimeField(auto_now=True)
     status        = models.CharField(max_length=2, choices=Status.choices, default=Status.PUBLISHED)
+    poll_voters   = models.ManyToManyField(settings.AUTH_USER_MODEL,blank=True)
     
-    
-
     def __str__(self):
         return self.poll_question
 
     def save(self, *args, **kwargs):    
         self.poll_slug = slugify(self.poll_question)
-        super().save(*args, **kwargs)
-    
+        super().save(*args,**kwargs)
     
     def get_absolute_url(self):
         # return reverse("blog:post-detail", args=[str(self.slug)])
@@ -44,10 +70,11 @@ class Poll(models.Model):
 
 
 class Choice(models.Model):
-    choice_poll        = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    choice_text        = models.CharField(max_length=200)
-    choice_votes_count = models.IntegerField(default=0)
-
+    choice_poll         = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    choice_text         = models.CharField(max_length=200,blank=False)
+    choice_votes_count  = models.IntegerField(default=0)
+    choice_votes_users  = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    
     def __str__(self):
         return str(self.id)
     
