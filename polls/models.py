@@ -57,6 +57,11 @@ class Poll(models.Model):
                                                         "month":self.published_at.month,
                                                           "day":self.published_at.day})
 
+    @property
+    def get_poll_voters_count(self):
+        return self.poll_voters.count()
+    
+    
     class Meta:
         verbose_name        = 'Poll'
         verbose_name_plural = 'Polls'

@@ -298,10 +298,21 @@ def poll_vote_create(request,poll_slug,year,month,day):
                                 published_at__day=day
     )
     
+    user = request.user
+    if user in poll.poll_voters.all():
+        messages.error(request,f"Sorry, you have no permission to vote again on the same poll !")
+        return redirect('polls:poll-votes-result',year=poll.published_at.year,month=poll.published_at.month,day=poll.published_at.day,poll_slug=poll.poll_slug)
+        
+    
     try:
         selected_choice = poll.choice_set.get(pk=request.POST['choice'])
         selected_choice.choice_votes_count += 1
         selected_choice.save()
+        poll.poll_voters.add(user)
+        poll.save()
+        
+        
+            
         return HttpResponseRedirect(reverse('polls:poll-votes-result', kwargs={"poll_slug": poll.poll_slug,
                                                                                     "year": poll.published_at.year,
                                                                                    "month": poll.published_at.month,

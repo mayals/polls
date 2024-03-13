@@ -24,12 +24,33 @@
             <canvas id="myChart"></canvas>
         </div>
     </section>
+
+
     <section  class="polls">
-        <div>
-            <p> created by: {{poll.poll_user.username }}</p>
-            <p> published at : {{poll.published_at }}</p>
-            <p> voted by : {{poll.published_at }}</p>
-        </div>
+
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Info</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><i class="fa-solid fa-file-pen"></i>&nbsp&nbspPoll Created by:</th>
+                <td>{{poll.poll_user.username }}</td>
+              </tr>
+              <tr>
+                <th scope="row"><i class="fa-regular fa-hourglass-half"></i>&nbsp&nbspPoll Started at:</th>
+                <td>{{poll.published_at }}</td> 
+              </tr>
+              <tr>
+                <th scope="row"><i class="fa-solid fa-users"></i>&nbsp&nbspPoll's Number of voters:</th>
+                <td colspan="2">{{poll.get_poll_voters_count }}</td>
+              </tr>
+            </tbody>
+        </table>
+        
     </section>
 
        
