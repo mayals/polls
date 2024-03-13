@@ -10,6 +10,7 @@ urlpatterns = [
     
     # Polls
     path('', views.home, name='home'),
+    path('cat/<slug:catslug>/', views.home, name='home-filter-category'),
     path('new-poll/', views.poll_create, name='poll-create'),
     path('poll-choices-create/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_choices_create, name='poll-choices-create'),
     path('poll-choices-update/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/<int:choice_id>/',views.poll_choices_update, name='poll-choices-update'),

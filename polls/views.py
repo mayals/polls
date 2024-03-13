@@ -25,7 +25,8 @@ def cat_detail(request,cat_slug):
 
 
 
-def home(request):
+def home(request,catslug=None):
+    
     polls = Poll.objects.all()
    
     # to delete from database any poll which has no choice  -- cleaning database from wrong polls
@@ -41,8 +42,14 @@ def home(request):
         sc = request.GET['sc']
         latest_poll_list = latest_poll_list.filter(poll_question__icontains=sc) 
     
+    
+    # filter by category
+    if catslug != None:
+       latest_poll_list   = latest_poll_list.filter(category__slug=catslug)
 
+   
     context = {
+        'categories'      : Category.objects.all() ,
         'latest_poll_list': latest_poll_list
         }
     return render(request, 'polls/home.html', context)
