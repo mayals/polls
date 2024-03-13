@@ -35,13 +35,14 @@ class Poll(models.Model):
     
     category      = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='polls_category', null=True)
     poll_slug     = models.SlugField(max_length=120, blank=True,  null=True)
-    poll_question = models.CharField(max_length=200, blank=False, null=True)
+    poll_question = models.CharField(max_length=200, unique=True, blank=False, null=True)
     poll_user     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='polls_user')
     published_at  = models.DateTimeField(default=timezone.now) 
     created_at    = models.DateTimeField(auto_now_add=True)
     updated_at    = models.DateTimeField(auto_now=True)
     status        = models.CharField(max_length=2, choices=Status.choices, default=Status.PUBLISHED)
     poll_voters   = models.ManyToManyField(settings.AUTH_USER_MODEL,blank=True)
+    poll_voters_count   = models.PositiveIntegerField(default=0, null=True, blank=True)
     
     def __str__(self):
         return self.poll_question
@@ -57,16 +58,9 @@ class Poll(models.Model):
                                                         "month":self.published_at.month,
                                                           "day":self.published_at.day})
 
-    @property
-    def get_poll_voters_count(self):
-        return self.poll_voters.count()
-    
-    
     class Meta:
         verbose_name        = 'Poll'
         verbose_name_plural = 'Polls'
-        unique_together     =['poll_question','published_at']
-        ordering = ["-updated_at","-published_at"]
 
 
 

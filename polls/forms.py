@@ -9,7 +9,7 @@ class PollForm(forms.ModelForm):
     
     class Meta:
             model   = Poll
-            fields  = ['category','poll_question','poll_voters']   
+            fields  = ['category','poll_question']   
        
        
        

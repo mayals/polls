@@ -273,7 +273,7 @@ def poll_delete_confirm(request,year,month,day,poll_slug):
 
 
 
-@login_required(login_url='users:user-login')
+
 def poll_detail(request,poll_slug,year,month,day):
     poll = get_object_or_404(Poll, poll_slug=poll_slug,
                           published_at__year=year,
@@ -309,6 +309,7 @@ def poll_vote_create(request,poll_slug,year,month,day):
         selected_choice.choice_votes_count += 1
         selected_choice.save()
         poll.poll_voters.add(user)
+        poll.poll_voters_count = poll.poll_voters.count()
         poll.save()
         
         
