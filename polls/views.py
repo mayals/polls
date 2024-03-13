@@ -202,6 +202,23 @@ def poll_delete_confirm(request,year,month,day,poll_slug):
 
 
 @login_required(login_url='users:user-login')
+def poll_detail(request,poll_slug,year,month,day):
+    poll = get_object_or_404(Poll, poll_slug=poll_slug,
+                          published_at__year=year,
+                         published_at__month=month,
+                           published_at__day=day
+    )
+    context = {
+        'poll': poll
+    }
+    return render(request, 'polls/poll_detail.html', context)
+
+
+
+
+
+
+@login_required(login_url='users:user-login')
 def poll_vote_create(request,poll_slug,year,month,day):
     poll = get_object_or_404(Poll, poll_slug=poll_slug,
                                 published_at__year=year,
@@ -221,7 +238,7 @@ def poll_vote_create(request,poll_slug,year,month,day):
     except (KeyError, Choice.DoesNotExist):
         context={
             'poll': poll,
-            'error_message': "You didn't select a choice.",   
+            'message': "You didn't select a choice.",   
         }
         return render(request, 'polls/poll_detail.html', context)
     
@@ -251,19 +268,5 @@ def poll_votes_result(request,poll_slug,year,month,day):
         
     }
     return render(request, 'polls/poll_votes_result.html', context)        
-
-
-
-
-def poll_detail(request,poll_slug,year,month,day):
-    poll = get_object_or_404(Poll, poll_slug=poll_slug,
-                          published_at__year=year,
-                         published_at__month=month,
-                           published_at__day=day
-    )
-    context = {
-        'poll': poll
-    }
-    return render(request, 'polls/poll_detail.html', context)
 
 

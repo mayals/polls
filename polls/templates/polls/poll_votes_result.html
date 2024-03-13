@@ -15,7 +15,7 @@
 {% block content %}
         
     <section  class="polls">
-        <h1 class='poll-question'>{{ question.question_text }}</h1>
+        <h1 class='poll-question'>{{ poll.poll_question }}</h1>
     </section>
 
 
@@ -23,7 +23,16 @@
         <div>
             <canvas id="myChart"></canvas>
         </div>
-    
+    </section>
+    <section  class="polls">
+        <div>
+            <p> created by: {{poll.poll_user.username }}</p>
+            <p> published at : {{poll.published_at }}</p>
+            <p> voted by : {{poll.published_at }}</p>
+        </div>
+    </section>
+
+       
 
         <!-- https://www.chartjs.org/docs/latest/getting-started/ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -55,7 +64,7 @@
 
 
 
-    </section>
+  
 
-    
+
 {% endblock content %}

@@ -39,7 +39,7 @@ class Poll(models.Model):
         verbose_name        = 'Poll'
         verbose_name_plural = 'Polls'
         unique_together     =['poll_question','published_at']
-
+        ordering = ["-updated_at","-published_at"]
 
 
 
