@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 
 <!-- start inlclude  'message' -->
@@ -29,9 +29,15 @@
 
     
     <!-- polls list  -->
-    <section class='polls bg-primary-subtle -black row mb-1 '>   
-
-      <h1 class='txt-color'><strong>Polls</strong></h1>
+    <section class='polls bg-primary-subtle -black row mb-1 '>
+      <nav class="navbar">
+        <div class="container-fluid">
+            {% comment %} <img src="{% static 'img/LOGO.png' %}" alt="" width="50" height="50" class="d-inline-block align-text-top"> {% endcomment %}
+           <h1> <strong class='txt-color'>Polls</strong></h1>
+        </div>
+      </nav>   
+      
+      
         <br><br><br>
 
     <!-- all filter  and search row -->
@@ -95,7 +101,7 @@
                         <span class="badge bg-light text-dark"> <i class="fa-solid fa-layer-group"></i> &nbsp{{poll.category|title}}</span>
                           <div>
                               <a class='text-decoration-none' href="{% url 'polls:poll-detail' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}">
-                                <p class="fw-bold fw-medium fs-3 text p-2"> {{ poll.poll_question }}</p>
+                                <p class="fw-bold fw-medium fs-3 text p-2 text-secondary"> {{ poll.poll_question }}</p>
                               </a>
                           </div> 
                           <div class="d-flex flex-row-reverse">
@@ -107,8 +113,7 @@
                               {% else %}
                                 <a href="{% url 'polls:poll-detail' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}"  type="button" class="btn btn-sm btn-danger bg-danger p-1">+Vote</a>&nbsp
                                 <a href="{% url 'polls:poll-votes-result' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}" type="button" class="btn btn-sm btn-warning p-1">Result</a>&nbsp
-                              
-                                {% endif %}
+                              {% endif %}
                           </div>
                           <span class="badge bg-light text-dark"><i class="fa-regular fa-clock"></i> &nbsp{{poll.created_at}}</span>|
                           <span class="badge bg-light text-dark"><i class="fa-solid fa-users"></i> &nbsp{{poll.poll_voters_count}}</span>
