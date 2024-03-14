@@ -3,8 +3,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from .models import Poll, Choice,Category
-from .forms import PollForm,ChoiceForm
+from .forms import PollForm,ChoiceForm,SharePollByEmailForm
+
+
 
 def categories(request):
     categories = Category.objects.all().order_by('-polls_count')
@@ -351,6 +354,53 @@ def poll_votes_result(request,poll_slug,year,month,day):
         'data_count'  : poll_choices_votes_counts 
         
     }
-    return render(request, 'polls/poll_votes_result.html', context)        
+    return render(request, 'polls/poll_votes_result.html', context)   
+
+
+
+
+def poll_share_by_email(request,poll_slug,year,month,day):
+    poll = get_object_or_404(Poll, poll_slug=poll_slug,
+                                published_at__year=year,
+                                published_at__month=month,
+                                published_at__day=day
+    )
+    form = SharePollByEmailForm()
+    if request.method == 'POST':
+        form = SharePollByEmailForm(request.POST)
+        # print("form"+ str(form))
+        if form.is_valid():
+            cd = form.cleaned_data
+            print("cd="+ str(cd))
+            sender_name = cd.get('sender_name')
+            sender_email = cd.get('sender_email')
+            recipient_email = cd.get('recipient_email')
+            sender_comment = cd.get('sender_comment')
+            
+            # https://docs.djangoproject.com/en/4.2/topics/email/#send-mail
+            # send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None, connection=None, html_message=None)¶
+            subject = f"{sender_name} recommends you read {poll.poll_question}"
+            poll_url = request.build_absolute_uri(poll.get_absolute_url())
+            message = f"Isuggest to you to do votes at ({poll.poll_question}) at {poll_url} \n {sender_name}\'s comments:{sender_comment}"
+            from_email =  sender_email
+            recipient_list = [recipient_email]
+            send_mail(subject,message,from_email,recipient_list,fail_silently=False)
+            print("send_mail=",send_mail(subject,message,from_email,recipient_list))
+            messages.success(request,f'Thanks ( {sender_name} ), for sharing the post ({poll.poll_question}).')
+            return redirect('polls:poll-detail',year=poll.published_at.year,month=poll.published_at.month,day=poll.published_at.day,poll_slug=poll.poll_slug)
+    
+        else:
+            form = SharePollByEmailForm()
+            messages.error(request,f'The post ({poll.poll_question}) not shared! please try again')
+            
+    else:
+        form = SharePollByEmailForm()
+    
+    context = {
+        'title': 'Poll Share By Email',
+        'poll' : poll,
+        'form' : form,
+    }
+    return  render(request,'polls/poll_share.html',context=context)       
 
 

@@ -196,3 +196,8 @@ MESSAGE_TAGS = {
 
 ############################### AUTH_USER_MODEL ##################################
 AUTH_USER_MODEL = "users.CustomUser"
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

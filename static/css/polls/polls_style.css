@@ -12,7 +12,7 @@ body, html, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
 /* Body background */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #33435a !important;
 }
 
 /* Container */
@@ -36,7 +36,7 @@ body {
 
 /* Polls section */
 .polls {
-    background-color: #fcfcfc;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -85,15 +85,15 @@ body {
 
 /* Button */
 .my-btn {
-    background-color: #938a8a; /* Gray */
+    background-color: #b00101; /* Gray */
     border: none;
     color: white;
-    padding: 1px 6px;
+    padding: 3px 6px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
-    border-radius: 0%;
+    border-radius: 10%;
     transition-duration: 0.4s;
   }
 
@@ -102,6 +102,10 @@ body {
     color: white;
   }
 
+.my-btn:focus {
+    background-color: #fd1100; /* Red */
+    color: white;
+  }
   
 /* Footer */
 .footer {

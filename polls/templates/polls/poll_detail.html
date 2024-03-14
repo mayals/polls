@@ -13,8 +13,11 @@
 
 {% block content %}
 
-    <section  class="polls">
-        <h1 class='poll-question'>{{ poll.poll_question }}</h1>
+    <section  class="polls d-flex justify-content-between">
+        <h1 class='poll-question'>{{ poll.poll_question }}</h1> 
+        <a class="btn btn-sm btn-success"href="{% url 'polls:poll-share-by-email' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}">
+            Share&nbsp&nbsp<i class="fa-regular fa-share-from-square"></i>
+        </a>   
     </section>
 
     <section class="polls">

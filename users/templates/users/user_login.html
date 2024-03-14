@@ -16,12 +16,12 @@
 
 {% block content %}
 
-    <section class='container'>
+    <section class='container polls bg-primary-subtle'>
     
-        <h1 class="screen-reader-only">Login Codes City-Web Development, Django, Django Rest Framework.</h1> 
+        <h1 class="screen-reader-only">Login </h1> 
         <h2 class='text-center'>Login</h2>
         <div class='row justify-content-center'>
-            <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 bg-info bg-gradient">
+            <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 bg-light bg-gradient">
                 <form method="POST" enctype='multipart/form-data' novalidate>
                     {% csrf_token %}
                     {{ form|crispy }}

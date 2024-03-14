@@ -13,13 +13,16 @@
 
 
 {% block content %}
-    <section class='bg-light container'>
-    
+       
+        
+    <section class='container polls bg-primary-subtle'>
         <h1 class="screen-reader-only">Register</h1> 
         <h2 class='text-center'>Register</h2>
+        
         <div class='row justify-content-center'>
-            <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 mt-2 back-ggg">
-                
+
+            
+            <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 bg-light bg-gradient">    
                 <form method="POST" enctype='multipart/form-data' novalidate>
                     {% csrf_token %}
                     {{ form|crispy }}
@@ -28,8 +31,8 @@
                         <a type="link" href="{% url 'users:select-role' %}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
-
             </div>
+          
         </div>
         
     </section>

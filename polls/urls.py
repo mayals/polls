@@ -16,6 +16,8 @@ urlpatterns = [
     path('sort/<str:sort_by>/', views.home, name='home-sort-by'),
     # polls # home filte by category
     path('cat/<slug:catslug>/', views.home, name='home-filter-category'),
+    # polls # home  by category
+    path('poll-share-by-email/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_share_by_email, name='poll-share-by-email'),
     path('new-poll/', views.poll_create, name='poll-create'),
     path('poll-choices-create/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_choices_create, name='poll-choices-create'),
     path('poll-choices-update/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/<int:choice_id>/',views.poll_choices_update, name='poll-choices-update'),

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% comment %} {% block content %}
+        <h1>Share "{{ post.title }}" by e-mail</h1>
+        <form method="POST">
+            {% csrf_token %}
+                {{form.media }}
+                {{ form|crispy }}
+            <input type="submit" value="Send e-mail">
+        </form>
+{% endblock %} {% endcomment %}
+
+
+
+{% block content %}
+<section class='bg-light container'>
+    <h1 class="screen-reader-only">Poll Share page</h1>   
+    <br><br><br>
+    <h2 >Share post: <strong>{{ poll.poll_question }}</strong></h2>
+   
+    <div class='row justify-content-center'>
+        <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 back-ggg">
+            <form method="POST" enctype='multipart/form-data' novalidate>
+                {% csrf_token %}
+
+                {{form.media }}
+                {{ form|crispy }}
+
+                <div class='d-flex justify-content-between'>
+                    <button type="submit" class="btn btn-success">Share</button>
+                    <a type="link" href="{{ poll.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+                </div>
+             
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}
