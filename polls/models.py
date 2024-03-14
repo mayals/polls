@@ -66,7 +66,7 @@ class Poll(models.Model):
 
 class Choice(models.Model):
     choice_poll         = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    choice_text         = models.CharField(max_length=200,blank=False)
+    choice_text         = models.CharField(max_length=200,unique=True,blank=False)
     choice_votes_count  = models.IntegerField(default=0)
     choice_votes_users  = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
@@ -74,3 +74,9 @@ class Choice(models.Model):
         return str(self.id)
     
     
+    class Meta:
+        verbose_name        = 'Choice'
+        verbose_name_plural = 'Choices'
+        unique_together =  ['choice_poll','choice_text']
+
+        
