@@ -52,7 +52,7 @@ body {
 .poll-question {
     font-size: 20px;
     margin-bottom: 10px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Tahoma, sans-serif,Verdana,Geneva;
 }
 
 /* Choices */
