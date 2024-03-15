@@ -116,8 +116,7 @@ def my_profile(request):
         
     if request.user.role  == 'VOTER' :
         profile = VoterProfile.objects.get(user=request.user) 
-       
-    
+         
     context = {
         'title': 'My Profile',
         'profile' : profile,

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %}
+<section class='bg-light container'>
+    <br><br><br>
+    <h1 class="screen-reader-only">Contact Us Codes City-Web Development, Django, Django Rest Framework.</h1> 
+    <h2 class='text-center'>Contact Us</h2>
+            <div class='row justify-content-center'>
+                <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 back-ggg">
+                    <form method="POST" action="{% url 'pages:contact-us' %}" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class='d-flex justify-content-end'>
+                        <button type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+</section>
+
+
+{% endblock content %}
