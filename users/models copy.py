@@ -3,27 +3,9 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
-from django.utils import timezone
 
 
 
-class Gender(models.TextChoices):
-        MALE   = "MALE", "Male"
-        FEMALE = "FEMALE", "Female"
-class CommonProfile(models.Model):
-    first_name = models.CharField(max_length=50, null=True, blank=False)
-    last_name  = models.CharField(max_length=50 , null=True, blank=False)
-    email      = models.EmailField(unique=True, null=True, blank=False)
-    age        = models.IntegerField(null=True, blank=False)
-    country    = models.CharField(max_length=200, blank=False, null=True)
-    gender     = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)  
-    created_at = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
-    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True,null=True)
-    
-    class Meta :
-        abstract = True
-        
-        
 #################################### CustomUser - Admin ###########################################################3
 class CustomUser(AbstractUser):
     class Role(models.TextChoices):
@@ -54,11 +36,15 @@ class CustomUser(AbstractUser):
         
 #################################### AdminProfile ###########################################################3
 # Note: AdminProfile is created by a signal
-class AdminProfile(CommonProfile):   
+
+class Gender(models.TextChoices):
+        MALE   = "MALE", "Male"
+        FEMALE = "FEMALE", "Female" 
+class AdminProfile(models.Model):   
     user   = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    polls_count = models.IntegerField(null=True, blank=True)
-    votes_count = models.IntegerField(null=True, blank=True)
-    
+    age    = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)
+
     def __str__(self):
         return str(self.user.username)
 
@@ -85,13 +71,15 @@ class Owner(CustomUser):
     
     
 #################################### OwnerProfile ###########################################################3
-
-class OwnerProfile(CommonProfile):   
+class Gender(models.TextChoices):
+        MALE   = "MALE", "Male"
+        FEMALE = "FEMALE", "Female" 
+        
+class OwnerProfile(models.Model):   
     user   = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    polls_count = models.IntegerField(null=True, blank=True)
-    votes_count = models.IntegerField(null=True, blank=True)
+    age    = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)
 
-    
     def __str__(self):
         return str(self.user.username)
 
@@ -120,9 +108,13 @@ class Voter(CustomUser):
 
 
 #################################### VoterProfile ###########################################################3
-class VoterProfile(CommonProfile):
-    user        = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    votes_count = models.IntegerField(null=True, blank=True)
+class Gender(models.TextChoices):
+        MALE   = "MALE", "Male"
+        FEMALE = "FEMALE", "Female" 
+class VoterProfile(models.Model):
+    user     = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    age      = models.IntegerField(null=True, blank=True)
+    gender   = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)
     
     def __str__(self):
         return str(self.user.username)

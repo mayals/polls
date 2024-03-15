@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% load static %} 
+
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %} 
+<section class="polls">
+     
+     <h1 class="screen-reader-only">Profile</h1> 
+     <h2 class='text-center'>Profile {{profile.user.username}}</h2>
+      <hr>
+        <div>
+          
+            <div class="row p-5">
+
+              <div class="card mb-3 w-100" >
+                <div class="row no-gutters">
+                  {% if profile.profile_pic  %}
+                    <div class="col-md-6">
+                      <img src="{{ profile.profile_pic.url }}" class="card-img img-thumbnail" width="250px" height="250px" alt={{profile.user.get_user_fullname}}>
+                    </div>
+                  {% else %} 
+                    <div class="col-md-6">
+                      <img src="{% static 'img/profile_default.avif' %}" class="card-img img-thumbnail"  width="250px" height="250px" alt={{profile.user.get_user_fullname}}>
+                    </div> 
+                  {% endif %}
+                  <div class="col-md-6">
+                      <div class="card-body">
+                            <h3 class="card-title"><span class="font-weight-bolder">First Name : </span>{{profile.user.first_name}}</h3>
+                            <h3 class="card-title"><span class="font-weight-bolder">Last Name : </span>{{profile.user.last_name}}</h3>
+                            <h3 class="card-title"><span class="font-weight-bolder">Email : </span>{{profile.user.email}}</h3>
+                            <h3 class="card-text"><span class="font-weight-bolder">Gender : </span>{{profile.gender}}</h3>                           
+                            <h3 class="card-text"><span class="font-weight-bolder">Country : </span>{{profile.country }}</h3>
+                            <h3 class="card-text"><span class="font-weight-bolder">created at : </span>{{profile.created_at}}</h3>                     
+                            <h3 class="card-text"><span class="font-weight-bolder">Updated at : </span>{{profile.updated_at}}</h3>                           
+                      </div>
+                      
+                      <div class='m-x-10'>
+                        <a type="link" class="btn btn-warning" href="" role="button"><span class="text-center">Update My Profile</span></a>
+                        <a type="link" class="btn btn-danger" href="" role="button"><span class="text-center">Change My Password</span></a>
+                      </div>
+                      <br>
+                  </div>
+              
+                </div>
+
+            </div>
+          
+        </div>
+</section>
+{% endblock %}

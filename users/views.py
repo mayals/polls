@@ -6,6 +6,8 @@ from django.contrib.auth.views import PasswordChangeView,PasswordChangeDoneView,
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from .forms import RoleSelectForm, UserRegisterForm, UserLoginForm
+from .models import AdminProfile, OwnerProfile, VoterProfile
+
 
 
 def select_role_view(request):
@@ -101,3 +103,23 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('polls:home')
+
+
+@login_required(login_url='users:user-login')
+def my_profile(request):
+    
+    if request.user.role  == 'ADMIN' :
+        profile = AdminProfile.objects.get(user=request.user)
+        
+    if request.user.role  == 'OWNER' :
+        profile = OwnerProfile.objects.get(user=request.user) 
+        
+    if request.user.role  == 'VOTER' :
+        profile = VoterProfile.objects.get(user=request.user) 
+       
+    
+    context = {
+        'title': 'My Profile',
+        'profile' : profile,
+    }
+    return render(request,'users/profile.html',context)
