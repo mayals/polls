@@ -56,7 +56,8 @@
                     <section  class="polls">
                         <div class= "d-flex justify-content-between mb-4">
                             <h1 class='poll-question'><strong><text class="fs-4 ">{{ poll.poll_question }}</strong></text></h1>
-                            <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn' type="button">Edit the Question</a>
+                            <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn bg-success' type="button">Edit the poll's question</a>
+                            <a href="{% url 'polls:poll-delete-confirm' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn' type="button">Delet this poll</a>
                         </div>
                         <div>
                             {% if poll.choice_set.all.count > 0  %}

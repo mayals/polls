@@ -105,7 +105,7 @@
                               </a>
                           </div> 
                           <div class="d-flex flex-row-reverse">
-                              {% if request.user.is_authenticated %}
+                              {% if request.user.is_authenticated and request.user.role == 'ADMIN' %}
                                 <a href="{% url 'polls:poll-detail' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}"  type="button" class="btn btn-sm btn-danger bg-danger p-1">+Vote</a>&nbsp
                                 <a href="{% url 'polls:poll-votes-result' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}" type="button" class="btn btn-sm btn-warning p-1">Result</a>&nbsp
                                 <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}"  type="button" class="btn btn-sm btn-success p-1">Edit</a>&nbsp
