@@ -63,7 +63,7 @@
                                 <ul class="list-group">
                                 {% for choice in poll.choice_set.all %}
                                     <div class=' polls d-flex justify-content-between'>
-                                        <li class="list-group-item border-0" >{{ choice.choice_text|title }}</li><a href="{% url 'polls:poll-choices-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day choice_id=choice.id  %}" class='my-btn' type="button">Edit</a>
+                                        <li class="list-group-item border-0" >{{ choice.choice_text }}</li><a href="{% url 'polls:poll-choices-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day choice_id=choice.id  %}" class='my-btn' type="button">Edit</a>
                                     </div>
                                 
                                 {% endfor %}
@@ -77,7 +77,7 @@
                             <section class="polls"> 
                                 <p>Add a choice to:
                                     <br>  
-                                    <strong><text class="fs-4">{{ poll.poll_question|title }}</text></strong> : </p>
+                                    <strong><text class="fs-4">{{ poll.poll_question }}</text></strong> : </p>
                                     <br>
                                     <br>
                             

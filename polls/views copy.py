@@ -75,11 +75,11 @@ def home(request,catslug=None,sc=None,sort_by=None):
     # sort by :
     if sort_by != None:
         if sort_by == 'PUB':
-            latest_poll_list  = latest_poll_list.order_by('-published_at')
+            latest_poll_list = Poll.objects.order_by('-published_at')
         if sort_by == 'VOT':
-             latest_poll_list = latest_poll_list.order_by('-poll_voters_count')
+             latest_poll_list = Poll.objects.order_by('-poll_voters_count')
         if sort_by == 'ALPH':
-            latest_poll_list  = latest_poll_list.order_by('poll_question')
+            latest_poll_list = Poll.objects.order_by('poll_question')
         
         
     

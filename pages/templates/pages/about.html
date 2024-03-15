@@ -1,54 +1,142 @@
 {% extends 'base.html' %}
-{% load static %}
-
-
-<!-- start inlclude  'message' -->
-{% block messages %}
-   {% include 'includes/messages.html' %}
-{% endblock messages %}
-<!-- END inlclude  'message' -->
-
-
 
 
 {% block content %}
-<section class='modify-content-center container'>
-    <br><br><br>
-    <h1 class="screen-reader-only">About Codes City Blog, What is this blog for ?</h1> 
-    <br><br><br>
-   
-    <img alt="about page image_web development quotes"
-      class="img-fluid"
-      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinFTmIkHm5wKomQiiVVIFhDqAzTu-p8ikTdT6x60nSatYbrsy7dl3ELYu-iUpJspb5NAK8IobqPzyuRcWgtcpkuLLN86yrWaffb0yTY7F2YFg9ESH1cBKFhXgjRe8zkDahYmzmj4g3uw-1zAj2J4GM5_BolF8751iMq48Yq6Mwc03cY3ZtGVsRQfMseUo/s1600-rw/web-development-quotes.png" 
-      title="image-web development quotes">
-    <br><br><br>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CROWDVOICE Polls - About Us</title>
+    <link rel="stylesheet" href="style.css">
 
-   <p> 
-    <span style="float: left; font-family: verdana; font-size: 70px; font-weight: bold; line-height: 50px; margin: 0px 5px 0px 0px; padding: 0px; position: relative;">G</span>
-    reetings and welcome to my blog! Codes City Blog , my name is May, and I come from an engineering and electronics background. Ever since I started using the internet, I have been captivated by the world of web development and its intricacies.
-   </p>
-   <p>
-    The idea of simply being a user who browses websites and applications without understanding how they were created felt like a form of ignorance to me. I ended up considering questions like, "How are these applications fabricated?", "What processes do these pages go through before reaching us?" and "What are the foundational concepts behind them?".
-</p>
-<p>
-    These inquiries just extended my advantage and drove me to examine any article or book that spoke about the subject. However, I soon discovered that the world of web development is complex and requires in-depth knowledge of various concepts and foundations. I realized that if I wanted my curiosity to be satisfied, I would need to commit to learning web development seriously and embark on the journey of creating web applications myself.
-</p>
-<p> 
-    My love for learning web development grew, and I became particularly passionate about working with the backend framework, Django. 
-</p>
-<p>
-    As I progressed in my knowledge, I found myself curious about how to consume the APIs I produced using Django Rest Framework. . This led me to learn the frontend framework, React , which helped me showcase my work on the frontend framework. 
-</p>
-<p>
+    <style type="text/css" media="screen">
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #6DA6FB;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1, h2 {
+            margin: 0;
+        }
+        
+        h1 {
+            font-size: 2em;
+        }
+        
+        h2 {
+            font-size: 1.5em;
+        }
+        
+        main {
+            padding: 50px;
+        }
+        
+        section {
+            margin-bottom: 30px;
+        }
+        
+        .about-intro p {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        
+        .features {
+            display: flex;
+        }
+    </style>
+</head>
+<body class='container'>
+    <header class="txt-color">
+        <h1 class='text-light'>CROWDVOICE Polls</h1>
+        <h2 class='text-light'>About Us</h2>
+    </header>
+
+    <main class="bg-light" >
+        <section class="about-intro">
+            <p>
+                CROWDVOICE Polls is a web application built with Python, Django web framework, empowering you to participate in and shape engaging polls. We believe in the collective power of voices shaping opinions and driving change.
+            </p>
+        </section>
+
+        <section class="features">
+            <h3>Core Features</h3>
+            <br>
+            <ul>
+                <li>
+                    <span class="icon">&#10004;</span>
+                    Create Polls (Owner role)
+                </li>
+                <li>
+                    <span class="icon">&#10004;</span>
+                    Vote on Polls (Voter & Owner roles)
+                </li>
+                <li>
+                    <span class="icon">&#10004;</span>
+                    Real-time Vote Results
+                </li>
+                <li>
+                    <span class="icon">&#10004;</span>
+                    User Management (Voter & Owner roles)
+                </li>
+                <li>
+                    <span class="icon">&#10004;</span>
+                    Content Moderation (Admin)
+                </li>
+            </ul>
+        </section>
+
+        <section class="mission">
+            <h3>Our Mission</h3>
+            <p>
+                CROWDVOICE Polls strives to provide a platform that:
+            </p>
+            <ul>
+                <li>Empowers individuals to have their voices heard.</li>
+                <li>Fosters informed decision-making through accessible polls.</li>
+                <li>Promotes open communication and the exchange of diverse viewpoints.</li>
+            </ul>
+        </section>
+
+        <section class="values">
+            <h3>Our Values</h3>
+            <p>
+                We operate with the following core values guiding our development and interactions:
+            </p>
+            <ul>
+                <li>Transparency: Clear and open communication.</li>
+                <li>Inclusivity: A welcoming environment for everyone.</li>
+                <li>Integrity: Responsible and ethical platform usage.</li>
+            </ul>
+        </section>
+
+        <section class="call-to-action">
+            <h2>Join the Conversation</h2>
+            <p>
+                Become part of the CROWDVOICE Polls community! Register as a Voter to participate in existing polls, or create an Owner account to craft your own.
+            </p>
+            <a href="{% url 'users:select-role' %}">Register Now</a>
+        </section>
+
+        <section class="contact">
+            <h3>Contact Us</h3>
+            <p>
+                Should you have any questions or require further assistance, please don't hesitate to contact us through the contact form provided on this website. We're here to help!
+            </p>
+            <a href="{% url 'pages:contact-us' %}">Contact Form</a>
+        </section>
+    </main>
+
     
-    Now, on Codes City Blog, I am excited to share the experiences and knowledge I have gained during my web development journey with you. I aim to be a source of knowledge, someone who contributes to the web as much as they absorb from it. I hope to assist anyone who, like me, loves coding and is seeking a starting point.
-    Feel free to explore the site and begin your own journey of web development.
+</body>
+</html>
 
-</p>
-<p>
-    Happy Coding!
-    </p>
-    <br><br><br>
-</section>  
 {% endblock content %}

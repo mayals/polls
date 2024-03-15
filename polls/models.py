@@ -77,6 +77,5 @@ class Choice(models.Model):
     class Meta:
         verbose_name        = 'Choice'
         verbose_name_plural = 'Choices'
-        unique_together =  ['choice_poll','choice_text']
 
         

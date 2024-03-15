@@ -68,9 +68,9 @@
                   Links
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">About Us</a></li>
-                  <li><a class="dropdown-item" href="#">Licence</a></li>
-                  <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                  <li><a class="dropdown-item" href="{% url 'pages:about' %}">About Us</a></li>
+                  <li><a class="dropdown-item" href="{% url 'pages:licence' %}">Licence</a></li>
+                  <li><a class="dropdown-item" href="{% url 'pages:contact-us' %}">Contact Us</a></li>
                 </ul>
             </li>
             
@@ -95,11 +95,13 @@
         
       
             {% endblock content %}
-
-
-
-
         </div>
+
+        <footer>
+          <br>
+          <p class=' text-center text-secondary small'>&copy; CROWDVOICE Polls. All Rights Reserved.</p>
+          <br>
+      </footer>
 
         <!-- bootstrap 5.3 -->
         <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
