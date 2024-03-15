@@ -20,9 +20,14 @@ class CommonProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
     updated_at = models.DateTimeField(auto_now_add=False, auto_now=True,null=True)
     
+    
+    # note : Abstract Models cannot be instantiated
     class Meta :
         abstract = True
         
+
+     
+     
         
 #################################### CustomUser - Admin ###########################################################3
 class CustomUser(AbstractUser):

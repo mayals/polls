@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordChangeView,PasswordChangeDoneView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from .forms import RoleSelectForm, UserRegisterForm, UserLoginForm
-from .models import AdminProfile, OwnerProfile, VoterProfile
+from .forms import RoleSelectForm, UserRegisterForm, UserLoginForm, AdminProfileUpdateForm, OwnerProfileUpdateForm, VoterProfileUpdateForm
+from .models import  AdminProfile, OwnerProfile, VoterProfile
 
 
 
@@ -123,3 +123,71 @@ def my_profile(request):
         'profile' : profile,
     }
     return render(request,'users/profile.html',context)
+
+
+
+
+def my_profile_update(request):
+    user= request.user
+    
+    if request.user.role  == 'ADMIN' :       
+        profile = AdminProfile.objects.get(user=request.user)
+        profileform = AdminProfileUpdateForm(instance=profile)
+        if request.method == 'POST' :
+            profileform = AdminProfileUpdateForm(request.POST, request.FILES, instance=profile)
+            if profileform.is_valid():
+                update_profile = profileform.save(commit=False)
+                update_profile.user=user
+                update_profile.save()
+                messages.success(request,f'{request.user.username} update your profile successfully')
+                return redirect('users:profile')
+        
+            else:
+                profileform = profileform
+                messages.error(request, f'Wrong in update your profile, please try again!')
+    
+    
+    
+    
+    
+    if request.user.role  == 'OWNER' :       
+        profile = OwnerProfile.objects.get(user=request.user)
+        profileform = OwnerProfileUpdateForm(instance=profile)
+        if request.method == 'POST' :
+            profileform = OwnerProfileUpdateForm(request.POST, request.FILES, instance=profile)       
+            if profileform.is_valid():
+                update_profile = profileform.save(commit=False)
+                update_profile.user=user
+                update_profile.save()
+                messages.success(request,f'{request.user.username} update your profile successfully')
+                return redirect('users:profile')
+        
+            else:
+                profileform = profileform
+                messages.error(request, f'Wrong in update your profile, please try again!')
+            
+            
+            
+            
+    if request.user.role  == 'VOTER' :
+        profile = VoterProfile.objects.get(user=request.user) 
+        profileform = VoterProfileUpdateForm(instance=profile)
+        if request.method == 'POST' :
+            profileform = VoterProfileUpdateForm(request.POST, request.FILES, instance=profile)        
+            if profileform.is_valid():
+                update_profile = profileform.save(commit=False)
+                update_profile.user=user
+                update_profile.save()
+                messages.success(request,f'{request.user.username} update your profile successfully')
+                return redirect('users:profile')
+        
+            else:
+                profileform = profileform
+                messages.error(request, f'Wrong in update your profile, please try again!')
+            
+               
+    context = {
+        'title'  : 'Update My Profile',
+        'profile':  profileform,
+    }
+    return render(request,'users/profile_update.html',context)

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from .models import CustomUser
+from .models import CustomUser,AdminProfile,OwnerProfile,VoterProfile
 
 
 class RoleSelectForm(forms.ModelForm):
@@ -53,4 +53,25 @@ class UserLoginForm(forms.ModelForm):
 
     class Meta:
         model   = get_user_model()
-        fields  = ("username", "password")   
+        fields  = ("username", "password")
+        
+        
+        
+        
+class AdminProfileUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model   = AdminProfile
+        fields  = ('first_name', 'last_name', 'email', 'age', 'country', 'gender')
+        
+        
+class OwnerProfileUpdateForm(forms.ModelForm):   
+    class Meta:
+        model   = OwnerProfile
+        fields  = ('first_name', 'last_name', 'email', 'age', 'country', 'gender')
+        
+        
+class VoterProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model   = VoterProfile
+        fields  = ('first_name', 'last_name', 'email', 'age', 'country', 'gender')

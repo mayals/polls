@@ -37,17 +37,18 @@
                   {% endif %}
                   <div class="col-md-6">
                       <div class="card-body">
-                            <h3 class="card-title"><span class="font-weight-bolder">First Name : </span>{{profile.user.first_name}}</h3>
-                            <h3 class="card-title"><span class="font-weight-bolder">Last Name : </span>{{profile.user.last_name}}</h3>
-                            <h3 class="card-title"><span class="font-weight-bolder">Email : </span>{{profile.user.email}}</h3>
-                            <h3 class="card-text"><span class="font-weight-bolder">Gender : </span>{{profile.gender}}</h3>                           
-                            <h3 class="card-text"><span class="font-weight-bolder">Country : </span>{{profile.country }}</h3>
-                            <h3 class="card-text"><span class="font-weight-bolder">created at : </span>{{profile.created_at}}</h3>                     
-                            <h3 class="card-text"><span class="font-weight-bolder">Updated at : </span>{{profile.updated_at}}</h3>                           
+                            <p class="card-title"><span class="font-weight-bolder">First Name : </span>{{profile.first_name}}</p>
+                            <p class="card-title"><span class="font-weight-bolder">Last Name : </span>{{profile.last_name}}</p>
+                            <p class="card-title"><span class="font-weight-bolder">Email : </span>{{profile.email}}</p>
+                            <p class="card-title"><span class="font-weight-bolder">Email : </span>{{profile.age}}</p>
+                            <p class="card-text"><span class="font-weight-bolder">Gender : </span>{{profile.gender}}</p>                           
+                            <p class="card-text"><span class="font-weight-bolder">Country : </span>{{profile.country }}</p>
+                            <p class="card-text"><span class="font-weight-bolder">created at : </span>{{profile.created_at}}</p>                     
+                            <p class="card-text"><span class="font-weight-bolder">Updated at : </span>{{profile.updated_at}}</p>                           
                       </div>
                       
                       <div class='m-x-10'>
-                        <a type="link" class="btn btn-warning" href="" role="button"><span class="text-center">Update My Profile</span></a>
+                        <a type="link" class="btn btn-warning" href="{% url 'users:profile-update' %}" role="button"><span class="text-center">Update My Profile</span></a>
                         <a type="link" class="btn btn-danger" href="" role="button"><span class="text-center">Change My Password</span></a>
                       </div>
                       <br>
