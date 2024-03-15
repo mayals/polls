@@ -38,7 +38,11 @@
             <tbody>
               <tr>
                 <th scope="row"><i class="fa-solid fa-file-pen"></i>&nbsp&nbspPoll Created by:</th>
-                <td>{{poll.poll_user.username }}</td>
+                {% if request.user.role == 'ADMIN' %}
+                    <td>{{poll.poll_user.username }} | {{poll.poll_user.adminprofile.country }}</td>
+                {% elif request.user.role == 'OWNER' %}
+                    <td>{{poll.poll_user.username }} | {{poll.poll_user.ownerprofile.country }}</td>
+                {% endif %}
               </tr>
               <tr>
                 <th scope="row"><i class="fa-regular fa-hourglass-half"></i>&nbsp&nbspPoll Started at:</th>
