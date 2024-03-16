@@ -6,7 +6,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     # polls 
-    path('polls/',include('polls.urls', namespace='polls')),
+    path('',include('polls.urls', namespace='polls')),
     # users
     path('users/',include('users.urls', namespace='users')),
     # pages

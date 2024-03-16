@@ -20,6 +20,9 @@ import os
 from pathlib import Path
 
 
+# https://pypi.org/project/dj-database-url/
+import dj_database_url
+
 
 # https://pypi.org/project/python-dotenv/
 # https://github.com/theskumar/python-dotenv
@@ -51,6 +54,7 @@ ALLOWED_HOSTS = ['polls-z0im.onrender.com','localhost','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    # built-in app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,8 +62,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my app
-    'polls.apps.PollsConfig',
     'users.apps.UsersConfig',
+    'polls.apps.PollsConfig',
     'pages.apps.PagesConfig',
     
     # packages
@@ -116,26 +120,28 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 #}
 
 
-DATABASES = {
-    # Development
-    'default': {
-        'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
+# DATABASES = {
+#     # Development
+#     'default': {
+#         'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
 
-        'NAME'    : os.getenv('DB_NAME'),
+#         'NAME'    : os.getenv('DB_NAME'),
 
-        'USER'    :  os.getenv('DB_USER'),
+#         'USER'    :  os.getenv('DB_USER'),
 
-        'PASSWORD':  os.getenv('DB_PASSWORD'),
+#         'PASSWORD':  os.getenv('DB_PASSWORD'),
 
-        'HOST'    : os.getenv('DB_HOST'),
+#         'HOST'    : os.getenv('DB_HOST'),
 
-        'PORT'    : os.getenv('DB_PORT') ,
-    }
-}
+#         'PORT'    : os.getenv('DB_PORT') ,
+#     }
+# }
 # print(DATABASES)
 
 
-DATABASE_URL = os.getenv('DATABASE_URL') ,
+DATABASES = {
+   'default': dj_database_url.parse( os.getenv('DATABASE_URL'), conn_max_age=600, conn_health_checks=True)
+}
 
 
 

@@ -1,5 +1,6 @@
 asgiref==3.7.2
 crispy-bootstrap5==2024.2
+dj-database-url==2.1.0
 Django==5.0.3
 django-crispy-forms==2.1
 gunicorn==21.2.0
@@ -7,4 +8,5 @@ packaging==24.0
 psycopg2==2.9.9
 python-dotenv==1.0.1
 sqlparse==0.4.4
+typing_extensions==4.10.0
 tzdata==2024.1
