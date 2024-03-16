@@ -7,9 +7,6 @@ pip install crispy-bootstrap5
 
 
 
-# https://pypi.org/project/python-dotenv/
-pip install python-dotenv
-
 
 
 # https://docs.gunicorn.org/en/latest/install.html
@@ -20,3 +17,16 @@ pip install gunicorn
 # https://pypi.org/project/dj-database-url/
 import dj_database_url
 pip install dj-database-url
+
+
+
+
+# i uninstall this package because it is not work with DATABASE_URL
+# https://pypi.org/project/python-dotenv/
+pip install python-dotenv
+
+
+
+
+# https://pypi.org/project/environs/
+pip install environs

@@ -26,12 +26,17 @@ import dj_database_url
 
 # https://pypi.org/project/python-dotenv/
 # https://github.com/theskumar/python-dotenv
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env.
+#load_dotenv()  # take environment variables from .env.
 # Code of your application, which uses environment variables (e.g. from `os.environ` or
 # `os.getenv`) as if they came from the actual environment.
 
+
+# https://pypi.org/project/environs/#install
+from environs import Env  # read .env file, if it exists
+env = Env()
+Env.read_env()
 
 
 
@@ -43,7 +48,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -139,10 +144,30 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 # print(DATABASES)
 
 
+
+
+# https://pypi.org/project/python-dotenv/
+# https://github.com/theskumar/python-dotenv
+#from dotenv import load_dotenv
+
+#load_dotenv()  # take environment variables from .env.
+# Code of your application, which uses environment variables (e.g. from `os.environ` or
+# `os.getenv`) as if they came from the actual environment.
+# DATABASES = {
+#    'default':dj_database_url.parse(os.getenv("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
+# }
+
+
+
+
+
 DATABASES = {
-   'default':dj_database_url.parse(os.getenv("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
+   'default':dj_database_url.parse(env("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
 }
+
 print(DATABASES)
+
+
 
 
 SITE_URL = 'https://polls-z0im.onrender.com/'
