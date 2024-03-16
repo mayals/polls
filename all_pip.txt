@@ -19,3 +19,4 @@ pip install gunicorn
 
 # https://pypi.org/project/dj-database-url/
 import dj_database_url
+pip install dj-database-url
