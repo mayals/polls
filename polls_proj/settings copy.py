@@ -40,7 +40,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-ve#3cvzn$rvrj+00^i0so@-a-zwca8qfw#^pvxcco&f&q*=j9!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -119,20 +119,20 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 DATABASES = {
     # Development
     'default': {
-        'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME'    : os.getenv('DB_NAME'),
+        'NAME': 'db_polls',
 
-        'USER'    :  os.getenv('DB_USER'),
+        'USER': 'postgres' ,
 
-        'PASSWORD':  os.getenv('DB_PASSWORD'),
+        'PASSWORD':'12345',
 
-        'HOST'    : os.getenv('DB_HOST'),
+        'HOST': '127.0.0.1',
 
-        'PORT'    : os.getenv('DB_PORT') ,
+        'PORT': '5433',
     }
 }
-# print(DATABASES)
+print(DATABASES)
 
 
 
