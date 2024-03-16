@@ -42,9 +42,7 @@
 
     <!-- all filter  and search row -->
     <section class='polls bg-dark-subtle -black row'>
-      <div class="row input-group">
-        
-          
+        <div class="row">
             <!-- filter by category -->
             <div class="dropdown col-md-6 col-sm-6">
               <button class="btn btn-light bg-secondary text-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,7 +76,8 @@
             </div>
       
             &nbsp &nbsp
-
+      <div/>
+      <div class='row'>
             <!-- search by name -->
             <div class="col-sm-12">
               <form class="form-inline input-group flex-nowrap" action={% url 'polls:home' %} method="GET">
