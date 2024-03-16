@@ -46,7 +46,7 @@
         <div class="d-flex justify-content-around">
           
             <!-- filter by category -->
-            <div class="dropdown">
+            <div class="dropdown col-md-6 col-12">
               <button class="btn btn-light bg-secondary text-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
               Filter By Category ..
               </button>
@@ -66,7 +66,7 @@
             &nbsp &nbsp
 
             <!-- sort by -->
-            <div class="dropdown">
+            <div class="dropdown col-md-6 col-12">
               <button class="btn btn-light bg-secondary text-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
               Sort By ..
               </button>
@@ -80,7 +80,7 @@
             &nbsp &nbsp
 
             <!-- search by name -->
-            <div class="col-md-6">
+            <div class="col-12">
               <form class="form-inline input-group flex-nowrap" action={% url 'polls:home' %} method="GET">
                   <input type="text" name="sc" {%if sc  %} value="{{sc}}"{% endif %} class='form-control bg-light' placeholder="Search By Word...">
                   <button type="submit" class="btn btn-sm btn-light bg-secondary text-light">
