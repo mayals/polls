@@ -161,8 +161,12 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 
 
 
+# DATABASES = {
+#    'default':dj_database_url.parse(env("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
+# }
+
 DATABASES = {
-   'default':dj_database_url.parse(env("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
+   'default':dj_database_url.parse("postgres://bloggerwebservice_db_user:LIk59Yd1N4QxijpdsFYimNNxTsh80nPu@dpg-cnc5s67109ks73d3lh2g-a.oregon-postgres.render.com/bloggerwebservice_db",conn_max_age=600,conn_health_checks=True)
 }
 
 print(DATABASES)
