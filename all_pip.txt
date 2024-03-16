@@ -9,3 +9,8 @@ pip install crispy-bootstrap5
 
 # https://pypi.org/project/python-dotenv/
 pip install python-dotenv
+
+
+
+# https://docs.gunicorn.org/en/latest/install.html
+pip install gunicorn
