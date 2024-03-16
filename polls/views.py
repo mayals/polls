@@ -25,6 +25,8 @@ def categories(request):
     return render(request,'polls/categories.html',context)
 
 
+
+
 def cat_detail(request,cat_slug):
     category = get_object_or_404(Category,slug=cat_slug)
     context = {
