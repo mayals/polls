@@ -44,7 +44,7 @@
     <section class='polls bg-dark-subtle'>
         <div class="row">
             <!-- filter by category -->
-            <div class="col-sm-12">
+            
               <div class="dropdown">
                 <button class="btn btn-light bg-secondary text-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                 Filter By Category..
@@ -61,9 +61,9 @@
                     {% endfor %}
                 </ul>
               </div>
-            </div>
+         
             <!-- sort by -->
-            <div class="col-sm-12">
+            
               <div class="dropdown">
                 <button class="btn btn-light bg-secondary text-light dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                 Sort By ..
@@ -74,18 +74,19 @@
                   <li><a class="dropdown-item"  href="{% url 'polls:home-sort-by' sort_by="ALPH" %}" >Alphabetic</a></li>
                 </ul>
               </div>
-            </div>
-        <div/>
-        <div class='row'>
+            
+            
+          
+       
             <!-- search by name -->
-            <div class="col-sm">
+           
               <form class="form-inline input-group flex-nowrap" action={% url 'polls:home' %} method="GET">
                   <input type="text" name="sc" {%if sc  %} value="{{sc}}"{% endif %} class='form-control bg-light' placeholder="Search By Word...">
                   <button type="submit" class="btn btn-sm btn-light bg-secondary text-light">
                       <i class="fa-solid fa-magnifying-glass"></i>
                   </button>
               </form>       
-            </div>   
+         
         </div>
     </section>  
 
