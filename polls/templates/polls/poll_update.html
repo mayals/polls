@@ -14,11 +14,13 @@
 
 {% block content %}
 
-<section class='bg-light container'>
-    <h1 class="screen-reader-only">Poll Update</h1>   
-    <br><br><br>
-    <h2 >Update poll: <strong>{{ poll.poll_descript|safe }}</strong></h2>
-   
+<section class='bg-light container m-2'>
+  
+    <br><br>
+    <p>Update poll:</p>
+        <br>
+        <h1>{{ poll.poll_descript|safe }}</h1>
+   <br>
     <div class='row justify-content-center'>
         <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 back-ggg">
             <form method="POST" enctype='multipart/form-data' novalidate>

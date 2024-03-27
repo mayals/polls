@@ -22,7 +22,9 @@
                 {% csrf_token %}
 
                 <p>Are you sure that you want to delete the poll:</p>
-                   <p class='fs-2 text-center'>"<strong>{{poll.poll_descript}}</strong>" </p>
+                <br>
+                   <p class='fs-2 text-center'>{{ poll.poll_descript|safe }}</p>
+                <br>   
                    <p>And all it's belong choices?</p>
                 <br>
                 <div class='d-flex justify-content-between'>

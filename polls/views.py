@@ -266,8 +266,8 @@ def poll_delete_confirm(request,year,month,day,poll_slug):
                                     published_at__month=month,
                                     published_at__day=day,
     ) 
-    if poll.poll_user == request.user :
-        if request.method == 'POST' and 'yes-delete'in request.POST:
+    if poll.poll_user == request.user or request.user.role == 'ADMIN':
+        if request.method == 'POST' and 'yes-delete' in request.POST:
             poll.delete()
             messages.success(request,f'Thanks ( {request.user.username} ), your poll deleted successfully !')
             return redirect('polls:home')

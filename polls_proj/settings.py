@@ -75,9 +75,10 @@ INSTALLED_APPS = [
     # https://pypi.org/project/crispy-bootstrap5/
     "crispy_forms",
     "crispy_bootstrap5",  
+    
     # https://django-tinymce.readthedocs.io/en/latest/
     # https://pypi.org/project/django-tinymce/
-     'tinymce',
+    'tinymce',
      
 ]
 # https://pypi.org/project/crispy-bootstrap5/
