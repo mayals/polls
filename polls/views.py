@@ -73,7 +73,8 @@ def home(request,catslug=None,sc=None,sort_by=None):
     # filter by category
     if catslug != None:
        latest_poll_list   = latest_poll_list.filter(category__slug=catslug)
-
+    
+        
 
     # sort by :
     if sort_by != None:
@@ -169,7 +170,7 @@ def poll_update(request,year,month,day,poll_slug):
                                     published_at__month=month,
                                     published_at__day=day,
     ) 
-    if poll.poll_user == request.user :
+    if poll.poll_user == request.user or request.user.role == 'ADMIN' :
         #-----PollForm()-------#  
         poll_form = PollForm(instance=poll)
         if request.method == 'POST':
@@ -214,7 +215,7 @@ def poll_choices_update(request,year,month,day,poll_slug,choice_id):
     
     choice = Choice.objects.filter(choice_poll=poll,id=choice_id).first()
     print(choice)
-    if poll.poll_user == request.user :
+    if poll.poll_user == request.user or request.user.role == 'ADMIN' :
         #---- ChoiceForm()-------#  
         choice_form = ChoiceForm(instance=choice)
         if request.method == 'POST':

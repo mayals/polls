@@ -13,16 +13,24 @@
 
 {% block content %}
 <section class='bg-light container'>
-    <br><br><br>
-    <h1 class="screen-reader-only">Contact Us Codes City-Web Development, Django, Django Rest Framework.</h1> 
-    <h2 class='text-center'>Contact Us</h2>
+ 
+    
+    <header class="txt-color text-center">
+        <h1 class='text-swcondary'>Contact Us
+            <br>
+            <span class="fs-6 text-secondary"> Contact CrowdVoice Polls team</span>
+        </h1>
+    </header>
+    
+ 
+    
             <div class='row justify-content-center'>
                 <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 back-ggg">
                     <form method="POST" action="{% url 'pages:contact-us' %}" novalidate>
                         {% csrf_token %}
                         {{ form|crispy }}
                         <div class='d-flex justify-content-end'>
-                        <button type="submit">Send Message</button>
+                        <button class="btn btn-sm btn-primary" type="submit">Send Message</button>
                         </div>
                     </form>
                 </div>
