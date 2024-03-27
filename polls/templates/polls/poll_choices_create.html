@@ -55,10 +55,13 @@
 
                     <section  class="polls">
                         <div class= "d-flex justify-content-between mb-4">
-                            <h1 class='poll-question'><strong><text class="fs-4 ">{{ poll.poll_question }}</strong></text></h1>
+                            <h2 class='poll-question'><text class="fs-4 ">{{ poll.poll_descript|safe }}</text></h2>                         
+                        </div>
+                        <div>
                             <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn bg-success' type="button">Edit the poll's question</a>
                             <a href="{% url 'polls:poll-delete-confirm' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn' type="button">Delet this poll</a>
                         </div>
+                        <br>
                         <div>
                             {% if poll.choice_set.all.count > 0  %}
                                 <ul class="list-group">
@@ -76,11 +79,8 @@
 
                     {% if poll.choice_set.all.count < 5 %}
                             <section class="polls"> 
-                                <p>Add a choice to:
-                                    <br>  
-                                    <strong><text class="fs-4">{{ poll.poll_question }}</text></strong> : </p>
-                                    <br>
-                                    <br>
+                                <p>Add a choice to the above poll:</p>
+                                 
                             
                                 <form method="POST" enctype='multipart/form-data' novalidate>
                                     {% csrf_token %}

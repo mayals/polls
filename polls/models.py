@@ -3,6 +3,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from django.conf import settings
+# https://pypi.org/project/django-tinymce/
+from tinymce.models import HTMLField
+
+
 
 
 
@@ -35,7 +39,9 @@ class Poll(models.Model):
     
     category      = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='polls_category', null=True)
     poll_slug     = models.SlugField(max_length=120, blank=True,  null=True)
+
     poll_question = models.CharField(max_length=200, unique=True, blank=False, null=True)
+    poll_descript = HTMLField(null=True)
     poll_user     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='polls_user')
     published_at  = models.DateTimeField(default=timezone.now) 
     created_at    = models.DateTimeField(auto_now_add=True)
@@ -61,6 +67,7 @@ class Poll(models.Model):
     class Meta:
         verbose_name        = 'Poll'
         verbose_name_plural = 'Polls'
+        
 
 
 

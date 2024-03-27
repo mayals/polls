@@ -64,10 +64,11 @@ def home(request,catslug=None,sc=None,sort_by=None):
     latest_poll_list = polls.order_by('-published_at')
     
     # search poll by poll_question 
-    if 'sc' in request.GET:   
+    if 'sc' in request.GET  :   
         sc = request.GET['sc']
-        latest_poll_list = latest_poll_list.filter(poll_question__icontains=sc) 
-    
+        if sc != "" :
+            latest_poll_list = latest_poll_list.filter(poll_descript__icontains=sc) 
+        
     
     # filter by category
     if catslug != None:
@@ -389,19 +390,19 @@ def poll_share_by_email(request,poll_slug,year,month,day):
             
             # https://docs.djangoproject.com/en/4.2/topics/email/#send-mail
             # send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None, connection=None, html_message=None)¶
-            subject = f"{sender_name} recommends you read {poll.poll_question}"
+            subject = f"{sender_name} recommends you read {poll.poll_descript}"
             poll_url = request.build_absolute_uri(poll.get_absolute_url())
-            message = f"Isuggest to you to do votes at ({poll.poll_question}) at {poll_url} \n {sender_name}\'s comments:{sender_comment}"
+            message = f"Isuggest to you to do votes at ({poll.poll_descript}) at {poll_url} \n {sender_name}\'s comments:{sender_comment}"
             from_email =  sender_email
             recipient_list = [recipient_email]
             send_mail(subject,message,from_email,recipient_list,fail_silently=False)
             print("send_mail=",send_mail(subject,message,from_email,recipient_list))
-            messages.success(request,f'Thanks ( {sender_name} ), for sharing the post ({poll.poll_question}).')
+            messages.success(request,f'Thanks ( {sender_name} ), for sharing the post ({poll.poll_descript}).')
             return redirect('polls:poll-detail',year=poll.published_at.year,month=poll.published_at.month,day=poll.published_at.day,poll_slug=poll.poll_slug)
     
         else:
             form = SharePollByEmailForm()
-            messages.error(request,f'The post ({poll.poll_question}) not shared! please try again')
+            messages.error(request,f'The post ({poll.poll_descript}) not shared! please try again')
             
     else:
         form = SharePollByEmailForm()

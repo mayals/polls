@@ -13,14 +13,27 @@ urlpatterns = [
     # users
     path('users/',include('users.urls', namespace='users')),
     # pages
-    path('pages/',include('pages.urls', namespace='pages'))
+    path('pages/',include('pages.urls', namespace='pages')),
+    # https://pypi.org/project/django-tinymce/
+    path('tinymce/', include('tinymce.urls')),
+    
 ]
-
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
+
+
+
+
+
+
+
+# 404  page
 handler404 = 'pages.views.handling_404'
+
+
+
 
 
 

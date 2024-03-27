@@ -1,15 +1,17 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Poll,Choice
-
+from tinymce.widgets import TinyMCE
 
 
 class PollForm(forms.ModelForm):
-    poll_question = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Add Qustion..'}))
+    poll_question = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Add poll headline..'}))
     
     class Meta:
             model   = Poll
-            fields  = ['category','poll_question']   
+            fields  = ['category','poll_question','poll_descript'] 
+            widgets = {'poll_descript': TinyMCE(attrs={'placeholder': 'Add poll description..','cols': 80, 'rows': 5})} 
+ 
        
        
        

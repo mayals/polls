@@ -17,14 +17,15 @@
 <section class='bg-light container'>
     <h1 class="screen-reader-only">Poll Update</h1>   
     <br><br><br>
-    <h2 >Update poll: <strong>{{ poll.poll_question }}</strong></h2>
+    <h2 >Update poll: <strong>{{ poll.poll_descript|safe }}</strong></h2>
    
     <div class='row justify-content-center'>
         <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 back-ggg">
             <form method="POST" enctype='multipart/form-data' novalidate>
                 {% csrf_token %}
 
-                  {{ poll_form|crispy }}
+                {{ poll_form.media }} 
+                {{ poll_form|crispy }}
             
 
                 <div class='d-flex justify-content-between'>

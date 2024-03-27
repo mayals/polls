@@ -74,7 +74,11 @@ INSTALLED_APPS = [
     # packages
     # https://pypi.org/project/crispy-bootstrap5/
     "crispy_forms",
-    "crispy_bootstrap5",   
+    "crispy_bootstrap5",  
+    # https://django-tinymce.readthedocs.io/en/latest/
+    # https://pypi.org/project/django-tinymce/
+     'tinymce',
+     
 ]
 # https://pypi.org/project/crispy-bootstrap5/
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -125,23 +129,23 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 #}
 
 
-# DATABASES = {
-#     # Development
-#     'default': {
-#         'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
+DATABASES = {
+    # Development
+    'default': {
+         'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
 
-#         'NAME'    : os.getenv('DB_NAME'),
+         'NAME'    : os.getenv('DB_NAME'),
 
-#         'USER'    :  os.getenv('DB_USER'),
+         'USER'    :  os.getenv('DB_USER'),
 
-#         'PASSWORD':  os.getenv('DB_PASSWORD'),
+         'PASSWORD':  os.getenv('DB_PASSWORD'),
 
-#         'HOST'    : os.getenv('DB_HOST'),
+         'HOST'    : os.getenv('DB_HOST'),
 
-#         'PORT'    : os.getenv('DB_PORT') ,
-#     }
-# }
-# print(DATABASES)
+         'PORT'    : os.getenv('DB_PORT') ,
+     }
+ }
+print(DATABASES)
 
 
 
@@ -165,11 +169,11 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 #    'default':dj_database_url.parse(env("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
 # }
 
-DATABASES = {
-   'default':dj_database_url.parse("postgres://bloggerwebservice_db_user:LIk59Yd1N4QxijpdsFYimNNxTsh80nPu@dpg-cnc5s67109ks73d3lh2g-a.oregon-postgres.render.com/bloggerwebservice_db",conn_max_age=600,conn_health_checks=True)
-}
+#DATABASES = {
+#   'default':dj_database_url.parse("postgres://bloggerwebservice_db_user:LIk59Yd1N4QxijpdsFYimNNxTsh80nPu@dpg-cnc5s67109ks73d3lh2g-a.oregon-postgres.render.com/bloggerwebservice_db",conn_max_age=600,conn_health_checks=True)
+#}
 
-print(DATABASES)
+# print(DATABASES)
 
 
 

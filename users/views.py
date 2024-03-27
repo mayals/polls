@@ -81,7 +81,7 @@ def user_login(request):
             login(request,user)
             form = UserLoginForm()
             messages.success(request,f'welcome back {user.username} you do login successfully.')
-            return redirect('polls:home')
+            return redirect('users:profile')
            
         else:
             messages.error(request,f'Error in username or password!')
