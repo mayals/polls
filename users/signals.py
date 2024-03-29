@@ -20,7 +20,7 @@ def create_Admin_profile(sender,instance,created,**kwargs):
 def create_owner_profile(sender,instance,created,**kwargs):
     if created:
         if instance.role == 'OWNER' : 
-            print("instance.role ="+str(instance.role))
+            #print("instance.role ="+str(instance.role))
             OwnerProfile.objects.create(user=instance)  
             
         
@@ -30,5 +30,5 @@ def create_owner_profile(sender,instance,created,**kwargs):
 def create_voter_profile(sender,instance,created,**kwargs):
     if created:
         if instance.role == 'VOTER' : 
-            print("instance.role ="+str(instance.role))
+            #print("instance.role ="+str(instance.role))
             VoterProfile.objects.create(user=instance)

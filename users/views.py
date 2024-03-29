@@ -39,9 +39,9 @@ def user_create_view(request,role=None):
     form = UserRegisterForm()
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        print(request.POST)
+        #print(request.POST)
         if form.is_valid():
-            print('form valid')
+            #print('form valid')
             new_user = form.save(commit=False)
             # if request.user.is_superuser:
             #     new_user.role = "ADMIN"
@@ -49,9 +49,9 @@ def user_create_view(request,role=None):
             #     return redirect('polls:home')
             
             if role :
-                    print('role='+str(role) )
+                    #print('role='+str(role) )
                     new_user.base_role = role
-                    print("new_user.role="+str(role))
+                    #print("new_user.role="+str(role))
                     new_user.save()
                     messages.success(request,f'Successfull register { new_user.username }! ')
                     return redirect('users:user-login')
@@ -72,10 +72,10 @@ def user_login(request):
         form     = UserLoginForm(request.POST)
         username    = request.POST.get('username')     # must be confirm email to can login
         password = request.POST.get('password')
-        print(username)
-        print(password)
+        #print(username)
+        #print(password)
         user = authenticate(username=username,password=password) #this user is found result only if user.is_active=True
-        print('user='+str(user))
+        #print('user='+str(user))
         if user is not None and user.is_active == True :
             #print('user='+ str(user))
             login(request,user)

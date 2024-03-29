@@ -44,7 +44,7 @@ class CustomUser(AbstractUser):
     def save(self, *args, **kwargs):
         if not self.id:
             self.role = self.base_role
-            print(self.role)
+            # print(self.role)
             return super().save(*args, **kwargs)
     
     def get_absolute_url(self):
