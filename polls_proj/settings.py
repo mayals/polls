@@ -53,7 +53,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['polls-z0im.onrender.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['polls-dev-zqte.2.us-1.fl0.io','localhost','127.0.0.1']
 
 
 # Application definition
