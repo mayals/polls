@@ -118,6 +118,9 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 
 
 
+CSRF_TRUSTED_ORIGINS = ['https://polls-dev-zqte.2.us-1.fl0.io']
+
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
