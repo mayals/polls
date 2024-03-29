@@ -130,27 +130,28 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 #}
 
 
-DATABASES = {
-    # Development
-    'default': {
-         'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
-
-         'NAME'    : os.getenv('DB_NAME'),
-
-         'USER'    :  os.getenv('DB_USER'),
-
-         'PASSWORD':  os.getenv('DB_PASSWORD'),
-
-         'HOST'    : os.getenv('DB_HOST'),
-
-         'PORT'    : os.getenv('DB_PORT') ,
-     }
- }
-print(DATABASES)
 
 
+# DATABASES = {
+ # Development
+#     'default': {
+#          'ENGINE'  : 'django.db.backends.postgresql_psycopg2',
+
+#          'NAME'    : os.getenv('DB_NAME'),
+
+#          'USER'    :  os.getenv('DB_USER'),
+
+#          'PASSWORD':  os.getenv('DB_PASSWORD'),
+
+#          'HOST'    : os.getenv('DB_HOST'),
+
+#          'PORT'    : os.getenv('DB_PORT') ,
+#      }
+#  }
+# print(DATABASES)
 
 
+#https://django-environ.readthedocs.io/en/latest/quickstart.html
 # https://pypi.org/project/python-dotenv/
 # https://github.com/theskumar/python-dotenv
 #from dotenv import load_dotenv
@@ -165,16 +166,29 @@ print(DATABASES)
 
 
 
-
+ 
 # DATABASES = {
-#    'default':dj_database_url.parse(env("DATABASE_URL"),conn_max_age=600,conn_health_checks=True)
+ # PRODUCTION
+#     'default': dj_database_url.parse('postgres://...',conn_max_age=600,conn_health_checks=True)
 # }
+DATABASES = {
+   'default': dj_database_url.parse(env('DATABASE_URL'), conn_max_age=600, conn_health_checks=True)
+}
 
-#DATABASES = {
-#   'default':dj_database_url.parse("postgres://bloggerwebservice_db_user:LIk59Yd1N4QxijpdsFYimNNxTsh80nPu@dpg-cnc5s67109ks73d3lh2g-a.oregon-postgres.render.com/bloggerwebservice_db",conn_max_age=600,conn_health_checks=True)
-#}
+print(DATABASES)
 
-# print(DATABASES)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
