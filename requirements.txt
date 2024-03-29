@@ -3,10 +3,13 @@ crispy-bootstrap5==2024.2
 dj-database-url==2.1.0
 Django==5.0.3
 django-crispy-forms==2.1
+django-js-asset==2.2.0
+django-tinymce==3.7.1
 environs==11.0.0
 gunicorn==21.2.0
 marshmallow==3.21.1
 packaging==24.0
+pillow==10.2.0
 psycopg2==2.9.9
 python-dotenv==1.0.1
 sqlparse==0.4.4

@@ -19,8 +19,9 @@ def categories(request):
         cat.save()
         
     context={
-        'title'     : 'Categories',
-        'categories': categories,
+        'title'              : 'Categories',
+        'description_content': 'Categories List of polls',
+        'categories'         : categories,
     }
     return render(request,'polls/categories.html',context)
 
@@ -31,6 +32,7 @@ def cat_detail(request,cat_slug):
     category = get_object_or_404(Category,slug=cat_slug)
     context = {
         'title': 'Category Detail',
+        'description_content': 'Categories detail of polls',
         'cat'  : category,
     }
     return render(request,'polls/cat_detail.html',context)
@@ -88,6 +90,8 @@ def home(request,catslug=None,sc=None,sort_by=None):
         
     
     context = {
+        'title'              : 'Home',
+        'description_content': 'Home page list all polls',
         'categories'      : Category.objects.all().order_by('-polls_count') ,
         'latest_poll_list': latest_poll_list,
         'sc'                : sc ,
@@ -115,10 +119,18 @@ def poll_create(request):
         else:
             form = PollForm()
             messages.error(request, f'error in creating a poll please try again!') 
+    
     context ={
+        'title'              : 'Poll Create',
+        'description_content': 'Add a new poll for the selected Category',
         'form':form,    
     }
     return render(request,'polls/poll_create.html', context)
+
+
+
+
+
 
 
 
@@ -153,6 +165,8 @@ def poll_choices_create(request,poll_slug,year,month,day):
             form = ChoiceForm()
             messages.error(request, f'error in creating a choice please try again!') 
     context = {
+        'title'              : 'Poll Choices Create',
+        'description_content': 'Create the choices for the selected poll',
         'poll'       : poll,
         'poll_form'  : form,    
     }
@@ -195,6 +209,7 @@ def poll_update(request,year,month,day,poll_slug):
     
     context ={
         'title'       :'Poll Update',
+        'description_content': 'Update the selected poll',
         'poll'        : poll,
         'poll_form'   : poll_form,
         
@@ -237,20 +252,17 @@ def poll_choices_update(request,year,month,day,poll_slug,choice_id):
         # #-----ChoiceForm()-------#      
         # for choice in poll.choice_set.all() :
         #     choice_form = ChoiceForm(instance=choice)
-            
-        
-    
-    
-    
+             
     
     else:
         messages.warning(request,f"Sorry, you have no permission to update , only poll's author can update it")
         return redirect('polls:home')
     
     context ={
-        'title'       :'Choice Update',
-        'poll'        : poll,
-        'choice_form' : choice_form,
+        'title'               :'Choice Update',
+        'description_content' : 'Update choice for the selected poll',
+        'poll'                : poll,
+        'choice_form'         : choice_form,
         
     }
     return render(request,'polls/poll_choices_update.html',context)
@@ -272,10 +284,13 @@ def poll_delete_confirm(request,year,month,day,poll_slug):
             poll.delete()
             messages.success(request,f'Thanks ( {request.user.username} ), your poll deleted successfully !')
             return redirect('polls:home')
+             
                 
         context ={
-            'title': 'Poll Delete Confirm',
-            'poll' :  poll ,
+            
+            'title'               : 'Poll Delete Confirm',
+            'description_content' : 'Delete selected poll',
+            'poll'                :  poll ,
         }
         return render(request,'polls/poll_delete_confirm.html',context)
  
@@ -296,6 +311,8 @@ def poll_detail(request,poll_slug,year,month,day):
                            published_at__day=day
     )
     context = {
+        'title'              : 'Poll Detail',
+        'description_content': 'poll detail page',
         'poll': poll
     }
     return render(request, 'polls/poll_detail.html', context)
@@ -335,9 +352,13 @@ def poll_vote_create(request,poll_slug,year,month,day):
                                                                                      "day": poll.published_at.day}))
     
     except (KeyError, Choice.DoesNotExist):
+        
         context={
+            'title'              : 'Vote Create',
+            'description_content': 'Vote create for the poll',
             'poll': poll,
             'message': "You didn't select a choice.",   
+        
         }
         return render(request, 'polls/poll_detail.html', context)
     
@@ -357,10 +378,10 @@ def poll_votes_result(request,poll_slug,year,month,day):
     for choice in choices :
         poll_choices_labels.append(choice.choice_text)
         poll_choices_votes_counts.append(choice.choice_votes_count)
-        
-        
-        
+           
     context={
+        'title'              : 'Poll Votes result',
+        'description_content': "Display the votes result of the poll with displaying chart",
         'poll': poll,
         'labels' : poll_choices_labels,
         'data_count'  : poll_choices_votes_counts 
@@ -410,6 +431,7 @@ def poll_share_by_email(request,poll_slug,year,month,day):
     
     context = {
         'title': 'Poll Share By Email',
+        'description_content': 'Share the poll by email',
         'poll' : poll,
         'form' : form,
     }

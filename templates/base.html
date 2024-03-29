@@ -5,19 +5,31 @@
 
     <!--Start Head-->
     <head>
-        <!-- title -->
+        <!-- title & Favicon-->
         {% if title %}
-            <title>{% block title %}CrowdVoice Polls| {{title}}{% endblock title %}</title>
+            <link rel="icon" type="image/x-icon"  href="{% static 'img/favicon.ico' %}" /><title>{% block title %}CrowdVoice Polls| {{title}}{% endblock title %}</title>
         {% else %}
-            <title>CrowdVoice polls</title>
+            <link rel="icon" type="image/x-icon"  href="{% static 'img/favicon.ico' %}" /><title>CrowdVoice polls</title>
         {% endif %}
     
         <!-- meta -->
         <meta charset="utf-8">
         <meta name="viewport"    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="home page that display all posts"/>
+        
+        <!-- meta -- description -->
+        {% if description_content %}
+            <meta name="description" content="{% block desc %} {{ description_content }} {% endblock desc %}"/>
+        {% else %}
+            <meta name="description" content="Create your own polls, Vote on poll or get audience insights with CrowdVoice Polls"/>
+        {% endif %}
+        
+        <!--link -- canonical -->
+        <link rel="canonical" href="http://127.0.0.1:8000/" />
 
        
+
+
+        
         <!-- bootstrap 5.3 -->
         <link href="{% static 'css\bootstrap\bootstrap.min.css' %}" rel="stylesheet" type="text/css">
         <!-- https://getbootstrap.com/docs/5.3/getting-started/introduction/#quick-start -->
