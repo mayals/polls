@@ -105,7 +105,7 @@
                         <span class="badge bg-light text-dark"> <i class="fa-solid fa-layer-group"></i> &nbsp{{poll.category|title}}</span>
                           <div>
                               <a class='text-decoration-none' href="{% url 'polls:poll-detail' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}">
-                                <h2 class="fw-bold fw-medium fs-3 text p-2 text-secondary"> {{ poll.poll_descript|safe }}</h2>
+                                <h2 class="text-secondary"> {{ poll.poll_descript|safe }}</h2>
                               </a>
                           </div> 
                           <div class="d-flex flex-row-reverse">
