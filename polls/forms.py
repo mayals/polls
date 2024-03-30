@@ -10,13 +10,17 @@ class PollForm(forms.ModelForm):
     class Meta:
             model   = Poll
             fields  = ['category','poll_question','poll_descript'] 
-            widgets = {'poll_descript': TinyMCE(attrs={'placeholder': 'Add poll description..','cols': 80, 'rows': 5})} 
+            widgets = {'poll_descript': TinyMCE(attrs={'placeholder' : 'Add poll description..' ,
+                                                              'cols' : 80 ,
+                                                              'rows' : 3,
+                                                            
+                                                        })} 
  
        
        
        
 class ChoiceForm(forms.ModelForm):
-    choice_text = forms.CharField(max_length=200)
+    choice_text = forms.CharField(max_length=25)
 
     class Meta:
             model   = Choice

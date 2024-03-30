@@ -110,7 +110,7 @@ def poll_create(request):
             poll= form.save(commit=False)
             poll.poll_user = request.user
             poll.save()
-            messages.success(request,f'Thank you {request.user.username}now you must add choices for this poll.')
+            messages.success(request,f'Thank you {request.user.username} now you must add choices for this poll.')
             return HttpResponseRedirect(reverse('polls:poll-choices-create', kwargs={"poll_slug": poll.poll_slug,
                                                                                     "year": poll.published_at.year,
                                                                                    "month": poll.published_at.month,
@@ -156,7 +156,7 @@ def poll_choices_create(request,poll_slug,year,month,day):
             choice.save()
             if poll.choice_set.count() == 0 :
                 poll.delete()
-            messages.success(request,f'Thank you {request.user.username}for adding choice to this poll.')
+            messages.success(request,f'Thank you {request.user.username} for adding choice to this poll.')
             return HttpResponseRedirect(reverse('polls:poll-choices-create', kwargs={"poll_slug": poll.poll_slug,
                                                                                     "year": poll.published_at.year,
                                                                                    "month": poll.published_at.month,

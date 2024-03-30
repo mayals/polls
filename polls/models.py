@@ -40,7 +40,7 @@ class Poll(models.Model):
     category      = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='polls_category', null=True)
     poll_slug     = models.SlugField(max_length=120, blank=True,  null=True)
 
-    poll_question = models.CharField(max_length=200, unique=True, blank=False, null=True)
+    poll_question = models.CharField(max_length=50, unique=True, blank=False, null=True)
     poll_descript = HTMLField(null=True)
     poll_user     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='polls_user')
     published_at  = models.DateTimeField(default=timezone.now) 
@@ -73,7 +73,7 @@ class Poll(models.Model):
 
 class Choice(models.Model):
     choice_poll         = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    choice_text         = models.CharField(max_length=200,unique=True,blank=False)
+    choice_text         = models.CharField(max_length=25,unique=True,blank=False)
     choice_votes_count  = models.IntegerField(default=0)
     choice_votes_users  = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
