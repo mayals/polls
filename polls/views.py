@@ -246,7 +246,7 @@ def poll_choices_update(request,year,month,day,poll_slug,choice_id):
          
             
             else:
-                choice_form = ChoiceForm(request.POST,request.FILES,instance=choice.id)
+                choice_form = ChoiceForm(choice.id,request.POST,request.FILES)
                 messages.error(request,f'choice not update correctly! please try again.!')
              
         # #-----ChoiceForm()-------#      
