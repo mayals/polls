@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+
+{% block content %}
+
+
+    <section  class="polls">
+               
+            <h1 class='fs-6 text-secondary text-center'>Choice Detail of Crowdvoice polls</h1> 
+            <br>   
+            <div class="polls bg-primary-subtle fs-4">     
+                <h2 class='fs-4'>Name: {{ choice.choice_text|safe  }}</h2>
+                <h2 class='fs-4'>For the poll: {{ choice.choice_poll|safe  }}</h2>
+                <h2 class='fs-4'>Vote count: {{ choice.choice_votes_count |safe  }}</h2>
+            </div>
+    </section>
+{% endblock content %}

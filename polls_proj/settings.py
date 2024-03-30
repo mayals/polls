@@ -79,6 +79,10 @@ INSTALLED_APPS = [
     # https://django-tinymce.readthedocs.io/en/latest/
     # https://pypi.org/project/django-tinymce/
     'tinymce',
+    
+    
+    "django.contrib.sites",     # sitemaps
+    'django.contrib.sitemaps',  # sitemaps 
      
 ]
 # https://pypi.org/project/crispy-bootstrap5/
@@ -119,6 +123,13 @@ WSGI_APPLICATION = 'polls_proj.wsgi.application'
 
 
 CSRF_TRUSTED_ORIGINS = ['https://polls-dev-zqte.2.us-1.fl0.io']
+
+INTERNAL_IPS = (
+    '127.0.0.1',
+    'localhost:8000'
+)
+
+
 
 
 
@@ -183,20 +194,9 @@ DATABASES = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 SITE_URL = 'https://polls-z0im.onrender.com/'
+
+SITE_ID = 1  # sitemap - we have only one site in our project, we can use 1.
 
 
 # Password validation

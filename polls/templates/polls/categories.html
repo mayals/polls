@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- start inlclude  'message' -->
+{% block messages %}
+   {% include 'includes/messages.html' %}
+{% endblock messages %}
+<!-- END inlclude  'message' -->
+
+
+
+{% block content %}
+
+
+    <!-- categories list  -->
+    <section class='polls bg-primary-subtle row mb-1 text-center '>
+ 
+        <div class="container-fluid">
+           <h1 >
+              <strong class='txt-color'>CrowdVoice</strong>  <span class="text-secondary fs-5">categories</span>
+           </h1>
+           <br> 
+        </div>
+      
+        <section class="text-center">
+            {% for cat in categories %}
+
+                <div class='polls'>
+                    <span class="badge bg-light text-dark">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </span>
+                    <span>
+                        <a class='text-decoration-none' href="{% url 'polls:category-detail' cat_slug=cat.slug %}">
+                            <h2 class="text-secondary"> {{ cat.name|safe }}</h2>
+                        </a>
+                    </span>
+                </div>
+         
+            {% empty %}
+                <div class='polls'>      
+                    <p class="fw-medium text">No categories are available.</p>
+                </div> 
+            {% endfor %}
+        </section>
+      
+    </section> 
+    
+  
+{% endblock content %} 

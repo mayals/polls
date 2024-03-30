@@ -7,6 +7,9 @@ from django.core.mail import send_mail
 from .models import Poll, Choice,Category
 from .forms import PollForm,ChoiceForm,SharePollByEmailForm
 
+from .models import Choice
+from django.views.generic import DetailView
+from django.views.generic import ListView
 
 
 def categories(request):
@@ -33,9 +36,37 @@ def cat_detail(request,cat_slug):
     context = {
         'title': 'Category Detail',
         'description_content': 'Categories detail of polls',
-        'cat'  : category,
+        'category'  : category,
     }
-    return render(request,'polls/cat_detail.html',context)
+    return render(request,'polls/category_detail.html',context)
+
+
+
+
+
+class ChoiceListView(ListView):
+    context_object_name = "choices"
+    queryset = Choice.objects.all()
+    template_name = "polls/choices.html"
+
+
+class ChoiceDetailView(DetailView):
+    queryset = Choice.objects.all()
+    template_name = "polls/choice_detail.html"
+    pk_url_kwarg = "choice_id"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["choice_poll"] = self.poll
+    #     return context                                             
+
+
+    # def get_object(self):
+    #     obj = super().get_object()
+    #     obj.choice_poll = self.get_context_data("choice_poll")
+    #     obj.save()
+    #     return obj
+
 
 
 
@@ -436,6 +467,17 @@ def poll_share_by_email(request,poll_slug,year,month,day):
         'form' : form,
     }
     return  render(request,'polls/poll_share.html',context=context)       
+
+
+
+
+
+
+
+
+
+
+
 
 
 

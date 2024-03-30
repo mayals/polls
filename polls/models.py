@@ -84,5 +84,12 @@ class Choice(models.Model):
     class Meta:
         verbose_name        = 'Choice'
         verbose_name_plural = 'Choices'
+        
+    
+    def get_absolute_url(self):
+        return reverse("polls:choice-detail", args=[str(self.id)])
+                                                       
+
+
 
         

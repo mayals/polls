@@ -6,9 +6,11 @@ app_name = 'polls'
 urlpatterns = [
     # Category
     path('categories/', views.categories, name='categories'),
-    path('cat-detail/<slug:cat_slug>/', views.cat_detail, name='cat-detail'),
+    path('category-detail/<slug:cat_slug>/', views.cat_detail, name='category-detail'),
     
-   
+    # Choice
+    path('choices/', views.ChoiceListView.as_view(), name='choices'),
+    path('choice-detail/<int:choice_id>/', views.ChoiceDetailView.as_view(), name='choice-detail'),
     
     # Polls
     path('', views.home, name='home'),
