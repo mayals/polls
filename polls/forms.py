@@ -13,6 +13,7 @@ class PollForm(forms.ModelForm):
             widgets = {'poll_descript': TinyMCE(attrs={'placeholder' : 'Add poll description..' ,
                                                               'cols' : 80 ,
                                                               'rows' : 3,
+                                                              'size' :50
                                                             
                                                         })} 
  

@@ -178,7 +178,7 @@ DATABASES = {
    'default': dj_database_url.parse(env('DATABASE_URL'), conn_max_age=600, conn_health_checks=True)
 }
 
-print(DATABASES)
+# print(DATABASES)
 
 
 

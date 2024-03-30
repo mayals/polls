@@ -1,5 +1,5 @@
-<DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
     {% load static %}
     
     
@@ -17,6 +17,9 @@
             <meta name="viewport"    content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <meta name="description" content="home page that display all posts"/>
     
+
+            <!--link -- canonical -->
+            <link rel="canonical" href="https://polls-dev-zqte.2.us-1.fl0.io/" />
            
             <!-- bootstrap 5.3 -->
             <link href="{% static 'css\bootstrap\bootstrap.min.css' %}" rel="stylesheet" type="text/css">
@@ -53,13 +56,14 @@
 
                 {% block content %}
 
-                    <section  class="polls">
-                        <div class= "d-flex justify-content-between mb-4">
-                            <h2 class='poll-question'><text class="fs-4 ">{{ poll.poll_descript|safe }}</text></h2>                         
-                        </div>
+                    <section  class="polls bg-primary-subtle">
+                            <h1 class="fs-6 text-secondary">Poll Choices create for poll:</h1><br>
+                            <h2 class='poll-question'><text class="fs-4">{{ poll.poll_descript|safe }}</text></h2>                         
+                        <br>
+                      
                         <div>
-                            <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn bg-success' type="button">Edit the poll's question</a>
-                            <a href="{% url 'polls:poll-delete-confirm' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='my-btn' type="button">Delet this poll</a>
+                            <a href="{% url 'polls:poll-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='btn  btn-warning' type="button">Edit the poll's question</a>
+                            <a href="{% url 'polls:poll-delete-confirm' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day  %}" class='btn btn-danger' type="button">Delet this poll</a>
                         </div>
                         <br>
                         <div>
@@ -67,7 +71,7 @@
                                 <ul class="list-group">
                                 {% for choice in poll.choice_set.all %}
                                     <div class=' polls d-flex justify-content-between'>
-                                        <li class="list-group-item border-0" >{{ choice.choice_text }}</li><a href="{% url 'polls:poll-choices-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day choice_id=choice.id  %}" class='my-btn' type="button">Edit</a>
+                                        <li class="list-group-item border-0" >{{ choice.choice_text }}</li><a href="{% url 'polls:poll-choices-update' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day choice_id=choice.id  %}" class='btn btn-sm btn-light' type="button">Edit</a>
                                     </div>
                                 
                                 {% endfor %}
@@ -93,7 +97,7 @@
                             </section>        
                     {% else %}     
                             <div> 
-                                <a href="{% url 'polls:home' %}" class='my-btn' type="button" >Finish and go to main page</a>
+                                <a href="{% url 'polls:home' %}" class='btn btn-sm btn-success d-grid gap-2' type="button" >Finish and go to main page</a>
                             </div>
                     {% endif %}
 

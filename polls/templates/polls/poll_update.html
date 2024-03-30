@@ -14,20 +14,17 @@
 
 {% block content %}
 
-<section class='bg-light container'>
-  
-    <br><br>
-   
+<section class='bg-primary-subtle container'>
+    <div class="card border-0 bg-primary-subtle">
+        <div class="card-body">
+            <h1 class="fs-6 text-secondary">Update Poll:</h1>
+            <h2 class="fs-5 p-1">{{ poll.poll_descript|safe }}</h2> 
+        </div>
+    </div>
+    <br>
     <div class="card">
         <div class="card-body">
-             
-            <br>
-            <h1 class="fs-6 text-secondary">{{ poll.poll_descript|safe }}</h1>
-            <br>
-            <hr>
-            <p>Update Form:</p> 
-            <br>
-        
+
             <form method="POST" enctype='multipart/form-data' novalidate>
                 {% csrf_token %}
 

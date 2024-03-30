@@ -23,10 +23,10 @@
       
     </section>
 
-    <section class="polls fs-4">
+    <section class="polls bg-primary-subtle fs-4">
         <form action="{% url 'polls:poll-vote-create' poll_slug=poll.poll_slug  year=poll.published_at.year  month=poll.published_at.month  day=poll.published_at.day %}" method="POST">
             {% csrf_token %}
-
+           
             {% for choice in poll.choice_set.all %}
                 <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="form-check-input">
                 <label for="choice{{ forloop.counter }}" class="form-check-label">
