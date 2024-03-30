@@ -35,6 +35,15 @@ urlpatterns = [
     
     # https://pypi.org/project/django-tinymce/
     path('tinymce/', include('tinymce.urls')),
+
+
+    
+    ################################### SEO ######################################
+
+    # google-site-verification  WAY(1)
+    #  https://search.google.com/search-console
+    path('google-site-verification', TemplateView.as_view(template_name="google7a03622cb96e4f8f.html")),
+    
     
     # https://docs.djangoproject.com/en/5.0/ref/contrib/sitemaps/#module-django.contrib.sitemaps
     path(
@@ -43,6 +52,10 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
+      
+    # robots.txt
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),  
+        
 ]
 
 urlpatterns += staticfiles_urlpatterns()

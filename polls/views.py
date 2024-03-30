@@ -485,7 +485,7 @@ def poll_share_by_email(request,poll_slug,year,month,day):
 
 ################################################### Google Search Console #############################3333333333
 
-#  https://search.google.com/search-console  
+#  WAY(2)--- https://search.google.com/search-console  
 ############################# Google Search Console - google-site-verification  #############################
 from django.http import HttpResponse
 from django.views import View
