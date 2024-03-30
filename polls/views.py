@@ -438,3 +438,18 @@ def poll_share_by_email(request,poll_slug,year,month,day):
     return  render(request,'polls/poll_share.html',context=context)       
 
 
+
+
+
+################################################### Google Search Console #############################3333333333
+
+#  https://search.google.com/search-console  
+############################# Google Search Console - google-site-verification  #############################
+from django.http import HttpResponse
+from django.views import View
+
+class GoogleSiteVerificationView(View):
+    line  =  "google-site-verification: google7a03622cb96e4f8f.html"
+    
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(self.line)

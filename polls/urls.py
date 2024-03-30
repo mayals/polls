@@ -28,6 +28,12 @@ urlpatterns = [
     path('poll-vote-create/<slug:poll_slug>/<int:year>/<int:month>/<int:day>/', views.poll_vote_create, name='poll-vote-create'),
     # path('poll-like/<int:year>/<int:month>/<int:day>/<slug:post_slug>/', views.poll_like_action, name='poll-like'),
     # path('poll-share-by-email/<int:year>/<int:month>/<int:day>/<slug:post_slug>/', views.poll_share_by_email, name='poll-share-by-email'), 
+
+    # Google Search Console
+    # https://oxfordmosaic.web.ox.ac.uk/documentation/verify-ownership-google-search-console
+    # google-site-verification: google7a03622cb96e4f8f.html
+    path('google7a03622cb96e4f8f.html', views.GoogleSiteVerificationView.as_view()),
+
 ]
 
 
