@@ -25,12 +25,18 @@
 
 
 {% block content %}
-<section class='bg-light container'>
-    <h1 class="screen-reader-only">Poll Share page</h1>   
-    <br><br><br>
-    <h2 >Share post: <strong>{{ poll.poll_descript }}</strong></h2>
+<section class='bg-light container justify-content-center'>
+    <h1 class="fs-6 text-secondary">Poll Share page</h1>   
+    <br>
+    
+    <div class='card border-0 bg-primary-subtle p-2'>
+
+    <h2 class="fs-5 text-secondary">Share the post:
+        <br>
+        <text class="text-center"><strong>{{ poll.poll_descript|safe }}</strong>
+    </h2>
    
-    <div class='row justify-content-center'>
+
         <div class="col-md-10 col-sm-11 border rounded border-secondary p-3 m-5 back-ggg">
             <form method="POST" enctype='multipart/form-data' novalidate>
                 {% csrf_token %}

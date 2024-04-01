@@ -286,12 +286,13 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 # 1) to send confirmation links in console:
 # -----------------------------------------
-EMAIL_BACKEND      = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@CodesCity'
+# EMAIL_BACKEND      = 'django.core.mail.backends.console.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'noreply@CodesCity'
 
 
 #2) to send confirmation links by using your - SMTP Server of your Gmail or yahoo mail :
-# -----------------------------------------
+############# send email using  SMTP Gmail ########################
+# -------------------------------------------------------------------
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = 'your_username@gmail.com'
@@ -300,6 +301,25 @@ DEFAULT_FROM_EMAIL = 'noreply@CodesCity'
 # EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
 # DEFAULT_FROM_EMAIL = 'noreply@yourwebsitename'
+
+
+
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')        #Note: get 'yourpassword' from  #https://myaccount.google.com/apppasswords
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+# EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+print(EMAIL_BACKEND)
+print(EMAIL_HOST)
+print(EMAIL_HOST_USER)
+print(EMAIL_HOST_PASSWORD)
+print(EMAIL_PORT)
+print(EMAIL_USE_TLS)
+print(DEFAULT_FROM_EMAIL)
 
 
 # EMAIL_BACKEND = 'django_email_utils.backends.HTMLEmailBackend'
