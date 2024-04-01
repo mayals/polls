@@ -308,18 +308,18 @@ EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')        #Note: get 'yourpassword' from  #https://myaccount.google.com/apppasswords
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_PORT = env('EMAIL_PORT') 
+EMAIL_USE_TLS = env('EMAIL_USE_TLS') 
 # EMAIL_USE_SSL = env('EMAIL_USE_SSL')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
-print(EMAIL_BACKEND)
-print(EMAIL_HOST)
-print(EMAIL_HOST_USER)
-print(EMAIL_HOST_PASSWORD)
-print(EMAIL_PORT)
-print(EMAIL_USE_TLS)
-print(DEFAULT_FROM_EMAIL)
+# print(EMAIL_BACKEND)
+# print(EMAIL_HOST)
+# print(EMAIL_HOST_USER)
+# print(EMAIL_HOST_PASSWORD)
+# print(EMAIL_PORT)
+# print(EMAIL_USE_TLS)
+# print(DEFAULT_FROM_EMAIL)
 
 
 # EMAIL_BACKEND = 'django_email_utils.backends.HTMLEmailBackend'
