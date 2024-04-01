@@ -92,6 +92,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # https://whitenoise.readthedocs.io/en/stable/index.html
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -249,12 +251,11 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') # for collectstatic for deplo
 # Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')                            # default storage of media in development 
-# DEFAULT_FILE_STORAGE ='cloudinary_storage.storage.MediaCloudinaryStorage' # default storage of media in production
 
 
 
-
-
+# https://whitenoise.readthedocs.io/en/stable/index.html
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
