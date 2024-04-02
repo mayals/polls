@@ -24,22 +24,26 @@ urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
     
-    # polls 
-    path('',include('polls.urls', namespace='polls')),
-    
     # users
     path('users/',include('users.urls', namespace='users')),
     
+    # polls 
+    path('',include('polls.urls', namespace='polls')),
+     
     # pages
     path('pages/',include('pages.urls', namespace='pages')),
     
     # https://pypi.org/project/django-tinymce/
     path('tinymce/', include('tinymce.urls')),
-
+    
+    # https://docs.djangoproject.com/en/5.0/topics/auth/default/#module-django.contrib.auth.views
+    # path("accounts/", include("django.contrib.auth.urls")),  # new
 
     
+    
+    
+    
     ################################### SEO ######################################
-
     # google-site-verification  WAY(1)
     #  https://search.google.com/search-console
     path('google-site-verification', TemplateView.as_view(template_name="google7a03622cb96e4f8f.html")),

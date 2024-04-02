@@ -125,7 +125,7 @@ def my_profile(request):
 
 
 
-
+@login_required(login_url='users:user-login')
 def my_profile_update(request):
     user= request.user
     
@@ -190,3 +190,46 @@ def my_profile_update(request):
         'profile':  profileform,
     }
     return render(request,'users/profile_update.html',context)
+
+
+
+
+
+
+######################## Password Reset #################################
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = "users/password_reset_email.html"
+    success_url         = reverse_lazy("users:password_reset_done")
+    template_name       = "users/password_reset_form.html"
+   
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "users/password_reset_done.html"
+    
+    
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    success_url = reverse_lazy("user:password_reset_complete")
+    template_name = "users/password_reset_confirm.html"
+   
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "users/password_reset_complete.html"
+    
+    
+
+
+
+
+
+######################## Password Change #################################
+from django.contrib.auth.mixins import LoginRequiredMixin
+class CustomPasswordChangeView(PasswordChangeView):
+    # form_class = PasswordChangeForm
+    success_url = reverse_lazy("users:password_change_done")
+    template_name = "users/password_change_form.html"
+    # title = _("Password change")
+
+
+
+class CustomPasswordChangeDoneView(PasswordChangeDoneView):
+    template_name = "users/password_change_done.html"

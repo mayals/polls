@@ -59,6 +59,11 @@ ALLOWED_HOSTS = ['polls-dev-zqte.2.us-1.fl0.io','localhost','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    # my app
+    'users.apps.UsersConfig',
+    'polls.apps.PollsConfig',
+    'pages.apps.PagesConfig',
+    
     # built-in app
     'django.contrib.admin',
     'django.contrib.auth',
@@ -66,10 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # my app
-    'users.apps.UsersConfig',
-    'polls.apps.PollsConfig',
-    'pages.apps.PagesConfig',
+    
     
     # packages
     # https://pypi.org/project/crispy-bootstrap5/
@@ -350,4 +352,4 @@ DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
  
  
  
- 
+LOGIN_URL = 'users:user-login'
