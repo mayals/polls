@@ -11,9 +11,7 @@ class Gender(models.TextChoices):
         MALE   = "MALE", "Male"
         FEMALE = "FEMALE", "Female"
 class CommonProfile(models.Model):
-    first_name = models.CharField(max_length=50, null=True, blank=False)
-    last_name  = models.CharField(max_length=50 , null=True, blank=False)
-    email      = models.EmailField(unique=True, null=True, blank=False)
+    user       = models.OneToOneField('CustomUser', on_delete=models.CASCADE)
     age        = models.IntegerField(null=True, blank=False)
     country    = models.CharField(max_length=200, blank=False, null=True)
     gender     = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)  
@@ -39,7 +37,12 @@ class CustomUser(AbstractUser):
     base_role = "ADMIN"
           
     # to decide What type of user are you?      
-    role   = models.CharField(max_length=50, choices=Role.choices, default=base_role)
+    role       = models.CharField(max_length=50, choices=Role.choices, default=base_role)
+    # from AbstractUser model
+    email      = models.EmailField(unique=False, null=True, blank=False) 
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    last_name  = models.CharField(max_length=50 , null=True, blank=True)
+    
     
     def save(self, *args, **kwargs):
         if not self.id:
@@ -60,7 +63,7 @@ class CustomUser(AbstractUser):
 #################################### AdminProfile ###########################################################3
 # Note: AdminProfile is created by a signal
 class AdminProfile(CommonProfile):   
-    user   = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user        = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     polls_count = models.IntegerField(null=True, blank=True)
     votes_count = models.IntegerField(null=True, blank=True)
     

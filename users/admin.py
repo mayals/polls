@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import CustomUser,Owner,Voter,AdminProfile,OwnerProfile,VoterProfile
+from .models import CustomUser,Owner,Voter,CommonProfile,AdminProfile,OwnerProfile,VoterProfile
 # Register your models here.
+
+admin.site.register(CommonProfile)
 
 admin.site.register(CustomUser)
 admin.site.register(AdminProfile)

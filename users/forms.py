@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from .models import CustomUser,AdminProfile,OwnerProfile,VoterProfile
+from .models import CustomUser,CommonProfile,AdminProfile,OwnerProfile,VoterProfile
 
 
 class RoleSelectForm(forms.ModelForm):
@@ -22,12 +22,15 @@ class RoleSelectForm(forms.ModelForm):
 
 # https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#a-full-example
 class UserRegisterForm(forms.ModelForm):
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="Password confirmation", widget=forms.PasswordInput)
-
+    password1  = forms.CharField(label="Password", widget=forms.PasswordInput, required=True)
+    password2  = forms.CharField(label="Password confirmation", widget=forms.PasswordInput, required=True)
+    email      = forms.EmailField(label="email address", required=True)
+    first_name = forms.CharField(label="first name", max_length=150, required=False)
+    last_name  = forms.CharField(label="last name", max_length=150, required=False)
+    
     class Meta:
         model = CustomUser
-        fields = ["username","password1","password2"]
+        fields = ["username","password1","password2","email","first_name","last_name"]
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -46,6 +49,18 @@ class UserRegisterForm(forms.ModelForm):
         return user
     
     
+
+
+class UserRegisterUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'First Name..'}))
+    last_name  = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Last Name..'}))
+    email      = forms.EmailField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Email..'}))
+    class Meta:
+        model  = CustomUser
+        fields = ['email','first_name','last_name']
+
+
+
     
 class UserLoginForm(forms.ModelForm):
     username = forms.CharField(label='', max_length=250, widget=forms.TextInput(attrs={'placeholder': 'username..'}))
@@ -56,22 +71,33 @@ class UserLoginForm(forms.ModelForm):
         fields  = ("username", "password")
         
         
-        
+      
+      
+      
+      
+################################## Profile ###########################333  
+class CommonProfileUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model   = CommonProfile
+        fields  = ('age', 'country', 'gender')
+  
+  
         
 class AdminProfileUpdateForm(forms.ModelForm):
     
     class Meta:
         model   = AdminProfile
-        fields  = ('first_name', 'last_name', 'email', 'age', 'country', 'gender')
+        fields  = ('age', 'country', 'gender')
         
         
 class OwnerProfileUpdateForm(forms.ModelForm):   
     class Meta:
         model   = OwnerProfile
-        fields  = ('first_name', 'last_name', 'email', 'age', 'country', 'gender')
+        fields  = ('age', 'country', 'gender')
         
         
 class VoterProfileUpdateForm(forms.ModelForm):
     class Meta:
         model   = VoterProfile
-        fields  = ('first_name', 'last_name', 'email', 'age', 'country', 'gender')
+        fields  = ('age', 'country', 'gender')

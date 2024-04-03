@@ -43,9 +43,12 @@
                   {% endif %}
                   <div class="col-md-6">
                       <div class="card-body">
-                            <p class="card-title"><span class="font-weight-bolder">First Name : </span>{{profile.first_name}}</p>
-                            <p class="card-title"><span class="font-weight-bolder">Last Name : </span>{{profile.last_name}}</p>
-                            <p class="card-title"><span class="font-weight-bolder">Email : </span>{{profile.email}}</p>
+                            <!-- from CustomUser model -->
+                            <p class="card-title"><span class="font-weight-bolder">username : </span>{{user.username}}</p>
+                            <p class="card-title"><span class="font-weight-bolder">First Name : </span>{{user.first_name}}</p>
+                            <p class="card-title"><span class="font-weight-bolder">Last Name : </span>{{user.last_name}}</p>
+                            <p class="card-title"><span class="font-weight-bolder">Email : </span>{{user.email}}</p>
+                            <!-- from CommonProfile  model --> 
                             <p class="card-title"><span class="font-weight-bolder">Age : </span>{{profile.age}}</p>
                             <p class="card-text"><span class="font-weight-bolder">Gender : </span>{{profile.gender}}</p>                           
                             <p class="card-text"><span class="font-weight-bolder">Country : </span>{{profile.country }}</p>

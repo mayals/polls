@@ -98,7 +98,7 @@
         </div>
     </nav>  
 
-           user= {{ user.username }}  + request={{ request.user.username }}
+           username= {{ user.username }} email={{ user.email }} + request={{ user.username }}
               {% for poll in latest_poll_list %}
                   {% if poll.choice_set.count != 0 %}
                       <section class='polls'>

@@ -5,13 +5,11 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import PasswordChangeView,PasswordChangeDoneView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from .forms import RoleSelectForm, UserRegisterForm, UserLoginForm, CommonProfileUpdateForm, AdminProfileUpdateForm, OwnerProfileUpdateForm, VoterProfileUpdateForm, UserRegisterUpdateForm
-from .models import  CommonProfile, AdminProfile, OwnerProfile, VoterProfile
+from .forms import RoleSelectForm, UserRegisterForm, UserLoginForm, AdminProfileUpdateForm, OwnerProfileUpdateForm, VoterProfileUpdateForm
+from .models import  AdminProfile, OwnerProfile, VoterProfile
 
 
 
-
-########################  select_role_view #################################
 def select_role_view(request):
     form = RoleSelectForm()
     if request.method == 'GET' and "yes" in request.GET :
@@ -36,7 +34,7 @@ def select_role_view(request):
 
 
 
-########################  user_create #################################
+# Create your views here.
 def user_create_view(request,role=None):
     form = UserRegisterForm()
     if request.method == 'POST':
@@ -69,8 +67,6 @@ def user_create_view(request,role=None):
 
 
 
-
-######################## user_login #################################
 def user_login(request):
     if request.method == 'POST':
         form     = UserLoginForm(request.POST)
@@ -102,7 +98,6 @@ def user_login(request):
 
 
 
-######################## user_logout #################################
 
 @login_required(login_url='users:user-login')
 def user_logout(request):
@@ -110,9 +105,6 @@ def user_logout(request):
     return redirect('polls:home')
 
 
-
-
-######################## Profiles  #################################
 @login_required(login_url='users:user-login')
 def my_profile(request):
     
@@ -133,42 +125,73 @@ def my_profile(request):
 
 
 
-
-
-######################## update CommonProfile  #################################
 @login_required(login_url='users:user-login')
 def my_profile_update(request):
-    instance_user    = request.user
-    print(instance_user)
-    instance_profile = get_object_or_404(CommonProfile, user=instance_user)
+    user= request.user
     
-    userform    = UserRegisterUpdateForm(instance=instance_user)
-    profileform = CommonProfileUpdateForm(instance=instance_profile)
-    
-    
-    if request.method == 'POST' :
-        profileform = CommonProfileUpdateForm(request.POST, request.FILES, instance=instance_profile)
-        userform    = UserRegisterUpdateForm(request.POST, request.FILES, instance=instance_user)
-        if profileform.is_valid() and userform.is_valid():
-            update_profile = profileform.save(commit=False)
-            update_profile.user=instance_user 
-            update_profile.save()
-             
-            update_userform = userform.save()   
-            messages.success(request,f'{request.user.username} update your profile successfully')
-            return redirect('users:profile')
+    if request.user.role  == 'ADMIN' :       
+        profile = AdminProfile.objects.get(user=request.user)
+        profileform = AdminProfileUpdateForm(instance=profile)
+        if request.method == 'POST' :
+            profileform = AdminProfileUpdateForm(request.POST, request.FILES, instance=profile)
+            if profileform.is_valid():
+                update_profile = profileform.save(commit=False)
+                update_profile.user=user
+                update_profile.save()
+                user.email = profileform["email"]
+                user.first_name = profileform["first_name"]
+                user.last_name = profileform["last_name"]
+                user.save()
+                messages.success(request,f'{request.user.username} update your profile successfully')
+                return redirect('users:profile')
         
-        else:
-            profileform = profileform
-            userform    = userform
-            messages.error(request, f'Wrong in update your profile, please try again!')
+            else:
+                profileform = profileform
+                messages.error(request, f'Wrong in update your profile, please try again!')
     
+    
+    
+    
+    
+    if request.user.role  == 'OWNER' :       
+        profile = OwnerProfile.objects.get(user=request.user)
+        profileform = OwnerProfileUpdateForm(instance=profile)
+        if request.method == 'POST' :
+            profileform = OwnerProfileUpdateForm(request.POST, request.FILES, instance=profile)       
+            if profileform.is_valid():
+                update_profile = profileform.save(commit=False)
+                update_profile.user=user
+                update_profile.save()
+                messages.success(request,f'{request.user.username} update your profile successfully')
+                return redirect('users:profile')
+        
+            else:
+                profileform = profileform
+                messages.error(request, f'Wrong in update your profile, please try again!')
+            
+            
+            
+            
+    if request.user.role  == 'VOTER' :
+        profile = VoterProfile.objects.get(user=request.user) 
+        profileform = VoterProfileUpdateForm(instance=profile)
+        if request.method == 'POST' :
+            profileform = VoterProfileUpdateForm(request.POST, request.FILES, instance=profile)        
+            if profileform.is_valid():
+                update_profile = profileform.save(commit=False)
+                update_profile.user=user
+                update_profile.save()
+                messages.success(request,f'{request.user.username} update your profile successfully')
+                return redirect('users:profile')
+        
+            else:
+                profileform = profileform
+                messages.error(request, f'Wrong in update your profile, please try again!')
+            
                
     context = {
-        'title'    : 'Update My Profile',
-        'profileform'  :  profileform,
-        'userform' :  userform,
-        
+        'title'  : 'Update My Profile',
+        'profile':  profileform,
     }
     return render(request,'users/profile_update.html',context)
 
