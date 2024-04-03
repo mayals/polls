@@ -138,6 +138,10 @@ def my_profile_update(request):
                 update_profile = profileform.save(commit=False)
                 update_profile.user=user
                 update_profile.save()
+                user.email = update_profile.get("email")
+                user.first_name = update_profile.get("first_name")
+                user.last_name = update_profile.get("last_name")
+                user.save()
                 messages.success(request,f'{request.user.username} update your profile successfully')
                 return redirect('users:profile')
         
