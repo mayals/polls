@@ -138,7 +138,7 @@ def my_profile_update(request):
                 update_profile = profileform.save(commit=False)
                 update_profile.user=user
                 update_profile.save()
-                user.email = profileform.get("email")
+                user.email = profileform["email"]
                 user.first_name = profileform.get("first_name")
                 user.last_name = profileform.get("last_name")
                 user.save()
