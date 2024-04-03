@@ -139,8 +139,8 @@ def my_profile_update(request):
                 update_profile.user=user
                 update_profile.save()
                 user.email = profileform["email"]
-                user.first_name = profileform.get("first_name")
-                user.last_name = profileform.get("last_name")
+                user.first_name = profileform["first_name"]
+                user.last_name = profileform["last_name"]
                 user.save()
                 messages.success(request,f'{request.user.username} update your profile successfully')
                 return redirect('users:profile')
