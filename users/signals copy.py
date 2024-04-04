@@ -1,17 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from .models import CustomUser,Voter,CommonProfile,AdminProfile,OwnerProfile,VoterProfile
+from .models import CustomUser,Voter,AdminProfile,OwnerProfile,VoterProfile
 from django.conf import settings
         
         
-#################################### AdminProfile signal ###########################################################3        
-@receiver(post_save,sender=settings.AUTH_USER_MODEL)
-def create_common_profile(sender,instance,created,**kwargs):
-    if created:
-        CommonProfile.objects.create(user=instance)
-
-
 #################################### AdminProfile signal ###########################################################3        
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def create_Admin_profile(sender,instance,created,**kwargs):

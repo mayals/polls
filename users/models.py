@@ -6,44 +6,23 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+ 
+################################### CustomUser - Admin ###########################################################3
 
-class Gender(models.TextChoices):
-        MALE   = "MALE", "Male"
-        FEMALE = "FEMALE", "Female"
-class CommonProfile(models.Model):
-    user       = models.OneToOneField('CustomUser', on_delete=models.CASCADE)
-    age        = models.IntegerField(null=True, blank=False)
-    country    = models.CharField(max_length=200, blank=False, null=True)
-    gender     = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)  
-    created_at = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
-    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True,null=True)
-    
-    
-    # note : Abstract Models cannot be instantiated
-    class Meta :
-        abstract = True
-        
-
-     
-     
-        
-#################################### CustomUser - Admin ###########################################################3
 class CustomUser(AbstractUser):
     class Role(models.TextChoices):
         OWNER = "OWNER", "Owner"
         VOTER = "VOTER", "Voter"
-        
+    
     # user type at start
-    base_role = "ADMIN"
-          
+    base_role = "ADMIN"     
     # to decide What type of user are you?      
     role       = models.CharField(max_length=50, choices=Role.choices, default=base_role)
     # from AbstractUser model
     email      = models.EmailField(unique=False, null=True, blank=False) 
-    first_name = models.CharField(max_length=50, null=True, blank=True)
-    last_name  = models.CharField(max_length=50 , null=True, blank=True)
-    
-    
+    first_name = models.CharField(max_length=50,default="n1" , blank=True)
+    last_name  = models.CharField(max_length=50 ,default="n2" , blank=True)
+      
     def save(self, *args, **kwargs):
         if not self.id:
             self.role = self.base_role
@@ -53,17 +32,37 @@ class CustomUser(AbstractUser):
     def get_absolute_url(self):
         return reverse("users:user-detail", kwargs={"username": self.username})
 
-
     def __str__(self):
             return str(self.username)
         
         
         
+ ################################### CommonProfile ###########################################################3
+class Gender(models.TextChoices):
+        MALE   = "MALE", "Male"
+        FEMALE = "FEMALE", "Female"
+class CommonProfile(models.Model):
+    user       = models.OneToOneField(CustomUser, on_delete=models.CASCADE,null=True)
+    age        = models.IntegerField(null=True, blank=False)
+    country    = models.CharField(max_length=200, blank=False, null=True)
+    gender     = models.CharField(max_length=50, choices=Gender.choices, default=Gender.MALE)  
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
+    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True,null=True)
+       
+    # note : Abstract Models cannot be instantiated
+    #class Meta :
+        #abstract = True
+        
+    def __str__(self):
+        return str(self.user.username)
+     
+ 
+ 
+ 
         
 #################################### AdminProfile ###########################################################3
 # Note: AdminProfile is created by a signal
 class AdminProfile(CommonProfile):   
-    user        = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     polls_count = models.IntegerField(null=True, blank=True)
     votes_count = models.IntegerField(null=True, blank=True)
     
@@ -71,7 +70,8 @@ class AdminProfile(CommonProfile):
         return str(self.user.username)
 
 
-#################################### Owner ###########################################################3
+
+#################################### Owner user ###########################################################3
 class OwnerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(role=CustomUser.Role.OWNER)
@@ -93,20 +93,22 @@ class Owner(CustomUser):
     
     
 #################################### OwnerProfile ###########################################################3
-
 class OwnerProfile(CommonProfile):   
-    user   = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     polls_count = models.IntegerField(null=True, blank=True)
     votes_count = models.IntegerField(null=True, blank=True)
-
-    
+  
     def __str__(self):
         return str(self.user.username)
 
 
 
 
-#################################### Voter ###########################################################3
+
+
+
+
+
+#################################### Voter user ###########################################################3
 class VoterManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(role=CustomUser.Role.VOTER)
@@ -129,7 +131,6 @@ class Voter(CustomUser):
 
 #################################### VoterProfile ###########################################################3
 class VoterProfile(CommonProfile):
-    user        = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     votes_count = models.IntegerField(null=True, blank=True)
     
     def __str__(self):
