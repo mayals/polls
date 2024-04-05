@@ -13,21 +13,27 @@ class CustomUser(AbstractUser):
     class Role(models.TextChoices):
         OWNER = "OWNER", "Owner"
         VOTER = "VOTER", "Voter"
-    
+
+    username = models.CharField("username",max_length=150,unique=True,
+        help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+        error_messages={
+            "unique": "A user with that username already exists.",
+        },
+    )
     # user type at start
     base_role = "ADMIN"     
     # to decide What type of user are you?      
     role       = models.CharField(max_length=50, choices=Role.choices, default=base_role)
     # from AbstractUser model
-    email      = models.EmailField(unique=False, null=True, blank=False) 
-    first_name = models.CharField(max_length=50,default="n1" , blank=True)
-    last_name  = models.CharField(max_length=50 ,default="n2" , blank=True)
+    email      = models.EmailField(unique=True, null=True, blank=False) 
+    first_name = models.CharField(max_length=50,blank=True)
+    last_name  = models.CharField(max_length=50 ,blank=True)
       
     def save(self, *args, **kwargs):
         if not self.id:
             self.role = self.base_role
             # print(self.role)
-            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
     
     def get_absolute_url(self):
         return reverse("users:user-detail", kwargs={"username": self.username})
@@ -68,9 +74,9 @@ class AdminProfile(CommonProfile):
     
     def __str__(self):
         return str(self.user.username)
-
-
-
+    # class Meta:
+    #     proxy = True
+        
 #################################### Owner user ###########################################################3
 class OwnerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -100,7 +106,8 @@ class OwnerProfile(CommonProfile):
     def __str__(self):
         return str(self.user.username)
 
-
+    # class Meta:
+    #     proxy = True
 
 
 
@@ -135,3 +142,7 @@ class VoterProfile(CommonProfile):
     
     def __str__(self):
         return str(self.user.username)
+    
+    
+    # class Meta:
+    #     proxy = True

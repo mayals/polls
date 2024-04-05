@@ -5,19 +5,19 @@ from .models import CustomUser,Voter,CommonProfile,AdminProfile,OwnerProfile,Vot
 from django.conf import settings
         
         
-#################################### AdminProfile signal ###########################################################3        
-@receiver(post_save,sender=settings.AUTH_USER_MODEL)
-def create_common_profile(sender,instance,created,**kwargs):
-    if created:
-        CommonProfile.objects.create(user=instance)
+# #################################### AdminProfile signal ###########################################################3        
+# @receiver(post_save,sender=settings.AUTH_USER_MODEL)
+# def create_common_profile(sender,instance,created,**kwargs):
+#     if created:
+#         CommonProfile.objects.create(user=instance)
 
 
 #################################### AdminProfile signal ###########################################################3        
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def create_Admin_profile(sender,instance,created,**kwargs):
     if created:
-        user=instance
-        AdminProfile.objects.create(user=instance)
+        if instance.is_superuser : 
+            AdminProfile.objects.create(user=instance)
         
 
        

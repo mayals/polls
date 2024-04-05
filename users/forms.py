@@ -76,11 +76,11 @@ class UserLoginForm(forms.ModelForm):
       
       
 ################################## Profile ###########################333  
-class CommonProfileUpdateForm(forms.ModelForm):
+# class CommonProfileUpdateForm(forms.ModelForm):
     
-    class Meta:
-        model   = CommonProfile
-        fields  = ('age', 'country', 'gender')
+#     class Meta:
+#         model   = CommonProfile
+#         fields  = ('age', 'country', 'gender')
   
   
         
