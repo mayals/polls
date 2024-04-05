@@ -407,7 +407,7 @@ def poll_votes_result(request,poll_slug,year,month,day):
     poll_choices_votes_counts = []
     choices = poll.choice_set.all()
     for choice in choices :
-        poll_choices_labels.append(choice.choice_text)
+        poll_choices_labels.append(choice.id)
         poll_choices_votes_counts.append(choice.choice_votes_count)
            
     context={
@@ -415,7 +415,8 @@ def poll_votes_result(request,poll_slug,year,month,day):
         'description_content': "Display the votes result of the poll with displaying chart",
         'poll': poll,
         'labels' : poll_choices_labels,
-        'data_count'  : poll_choices_votes_counts 
+        'data_count'  : poll_choices_votes_counts, 
+        'choices':choices,
         
     }
     return render(request, 'polls/poll_votes_result.html', context)   

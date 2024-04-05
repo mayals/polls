@@ -23,11 +23,23 @@
         <div>
             <canvas id="myChart"></canvas>
         </div>
-    </section>
+       
+       <div class="container">
+        {% for choice in choices %}
+              <p class="text-secondary">{{ choice.id }} : {{choice.choice_text}}<p>
+        {% endfor %}
+        <div>
+      </section>
+
+
+
+
 
 
     <section  class="polls">
-
+    
+      
+      
         <table class="table table-hover">
             <thead>
               <tr>
